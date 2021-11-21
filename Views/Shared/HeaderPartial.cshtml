@@ -1,38 +1,47 @@
-﻿@*<header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Coursework</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                    </ul>
+﻿@using Microsoft.AspNetCore.Identity
+@using Coursework.Domain.Entities
+@using Microsoft.AspNetCore.Hosting
+@inject UserManager<ApplicationUser> _userManager
+@inject IWebHostEnvironment webHostEnvironment
+
+    <header class="p-3 bg-light text-white">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a class="align-items-center text-black text-decoration-none
+                      col-12 col-lg-auto me-lg-auto"
+                   asp-area="" asp-controller="Home" asp-action="Index">Coursework</a>
+
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 flex-last">
+                    <input type="search" class="form-control form-control-dark" placeholder="Search..."
+                           aria-label="Search">
+                </form>
+                <div class="text-end">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-dark me-2">Login</a>
+                        <a asp-controller="Account" asp-action="Register" class="btn btn-warning">Register</a>
+                    }
+                    else
+                    {
+                        var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
+
+                        <div class="flex-shrink-0 dropdown">
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="@user.AvatarUrl" alt="mdo" width="32" height="32" class="rounded-circle">
+                            </a>
+                            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+                                <li><a class="dropdown-item" href="#">Личный кабинет</a></li>
+                                <li><a class="dropdown-item" href="#">Настройки</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form method="post" asp-controller="Account" asp-action="SignOut">
+                                        <input class="dropdown-item" type="submit" value="Выйти" />
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    }
                 </div>
             </div>
-        </nav>
-    </header>*@
-
-<header class="p-3 bg-light text-white">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a class="align-items-center text-black text-decoration-none
-               col-12 col-lg-auto me-lg-auto"
-               asp-area="" asp-controller="Home" asp-action="Index">Coursework</a>
-
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 flex-last">
-                <input type="search" class="form-control form-control-dark" placeholder="Search..."
-                       aria-label="Search">
-            </form>
-
-            <div class="text-end">
-                <button type="button" class="btn btn-outline-dark me-2">Login</button>
-                <button type="button" class="btn btn-warning">Sign-up</button>
-            </div>
         </div>
-    </div>
-</header>
+    </header>

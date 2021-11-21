@@ -1,0 +1,30 @@
+﻿@model Coursework.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Sign In";
+}
+
+<h1>Sign in</h1>
+
+<form class="mb-3" asp-controller="Account" asp-action="Login" method="post" asp-route-returnUrl="@Model.ReturnUrl">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="container">
+        <label class="col-2">Username</label>
+        <input class="col-4" type="text" asp-for="Username" />
+        <span asp-validation-for="Username"></span>
+    </div>
+    <br />
+    <div class="container">
+        <label class="col-2">Password</label>
+        <input class="col-4" type="password" asp-for="Password" />
+    </div>
+
+    <br />
+
+    <div class="container">
+        <label class="col-2">Remember Me</label>
+        <input class="col-4" type="checkbox" asp-for="RememberMe" />
+    </div>
+
+    <input type="submit" class="btn btn-primary" />
+</form>
