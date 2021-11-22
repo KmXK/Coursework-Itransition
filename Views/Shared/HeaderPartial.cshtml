@@ -18,8 +18,8 @@
                 <div class="text-end">
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-dark me-2">Login</a>
-                        <a asp-controller="Account" asp-action="Register" class="btn btn-warning">Register</a>
+                        <a asp-controller="Authorization" asp-action="Login" class="btn btn-outline-dark me-2">Login</a>
+                        <a asp-controller="Authorization" asp-action="Register" class="btn btn-warning">Register</a>
                     }
                     else
                     {
@@ -30,11 +30,11 @@
                                 <img src="@user.AvatarUrl" alt="mdo" width="32" height="32" class="rounded-circle">
                             </a>
                             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
-                                <li><a class="dropdown-item" href="#">Личный кабинет</a></li>
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Index">Личный кабинет</a></li>
                                 <li><a class="dropdown-item" href="#">Настройки</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <form method="post" asp-controller="Account" asp-action="SignOut">
+                                    <form method="post" asp-controller="Authorization" asp-action="SignOut">
                                         <input class="dropdown-item" type="submit" value="Выйти" />
                                     </form>
                                 </li>

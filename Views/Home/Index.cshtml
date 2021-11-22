@@ -1,16 +1,20 @@
-﻿@{
+﻿@model IEnumerable<Coursework.Models.Review>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <br/>
     <div class="d-grid gap-3" style="grid-template-columns: 2fr 1fr;">
-        <div class="bg-dark">
-            <text class="text-light">
-            </text>
+        <div class="container">
+            @foreach(var r in Model)
+            {
+                await Html.RenderPartialAsync("ReviewPartPartial", r);
+            }   
         </div>
-        <div class="bg-dark">
-            <text class="text-light">Hello world!</text>
+        <div class="container">
+            <text class="text-black">Hello world!</text>
         </div>
     </div>
 </div>

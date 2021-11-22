@@ -1,0 +1,13 @@
+﻿@model Coursework.Models.Review
+
+<h3>Вы действительно хотите удалить обзор "@Model.Title"?</h3>
+
+<div style="display: flex; flex-direction: row">
+    <div class="mr-2" style="margin-right: 10px">
+        <form method="post" asp-controller="Review" asp-action="Delete">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
+
+    <a asp-controller="Home" asp-action="Index"><button class="btn btn-secondary">Cancel</button></a>
+</div>

@@ -1,0 +1,44 @@
+﻿@model Coursework.Models.AccountViewModel
+
+<div style="display: flex" class="mb-2">
+    <img height="60" width="60" class="rounded-circle" style="margin-right: 10px" src="@Model.User.AvatarUrl" alt="No avatar image"/>
+    <h2>UserName: @Model.User.UserName</h2>
+</div>
+
+<table id="reviewTable" class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Text</th>
+        <th>Rating</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in @Model.Reviews)
+        {
+            <tr>
+                <td>@r.Title</td>
+                <td>@r.Text</td>
+                <td>@r.AuthorRating</td>
+                <td>
+                    <div>
+                        <a asp-controller="Review" asp-action="Delete" asp-route-id="@r.Id">
+                            <button class="btn btn-danger" type="button">Delete</button>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts
+{
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#reviewTable').DataTable();
+        } );
+    </script>
+}
