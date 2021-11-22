@@ -9,6 +9,10 @@
     <Compile Remove="Migrations\20211119222140_AddedMom.Designer.cs" />
     <Compile Remove="Migrations\20211121154409_AddedReviews.cs" />
     <Compile Remove="Migrations\20211121154409_AddedReviews.Designer.cs" />
+    <Compile Remove="Migrations\20211122205244_AddedAdminAccount.cs" />
+    <Compile Remove="Migrations\20211122205244_AddedAdminAccount.Designer.cs" />
+    <Compile Remove="Migrations\20211122205449_AddedAdminAccount.cs" />
+    <Compile Remove="Migrations\20211122205449_AddedAdminAccount.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

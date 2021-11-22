@@ -11,5 +11,6 @@ namespace Coursework.Models
         public string Text { get; set; }
         public int AuthorRating { get; set; }
         public List<Comment> Comments { get; set; }
+        public ICollection<ReviewRating> Ratings { get; set; }
     }
 }

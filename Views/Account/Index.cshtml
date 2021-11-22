@@ -1,15 +1,25 @@
 ﻿@model Coursework.Models.AccountViewModel
 
+@{
+    ViewBag.Title = @Model.User.UserName;
+}
+
 <div style="display: flex" class="mb-2">
     <img height="60" width="60" class="rounded-circle" style="margin-right: 10px" src="@Model.User.AvatarUrl" alt="No avatar image"/>
-    <h2>UserName: @Model.User.UserName</h2>
+    <h2>@Model.User.UserName</h2>
+</div>
+
+
+<div class="text-end mb-2">
+    <a asp-controller="Review" asp-action="Create">
+        <button class="btn btn-warning" type="button">Create</button>
+    </a>
 </div>
 
 <table id="reviewTable" class="table">
     <thead>
     <tr>
         <th>Title</th>
-        <th>Text</th>
         <th>Rating</th>
         <th>Actions</th>
     </tr>
@@ -17,18 +27,29 @@
     <tbody>
         @foreach (var r in @Model.Reviews)
         {
-            <tr>
-                <td>@r.Title</td>
-                <td>@r.Text</td>
-                <td>@r.AuthorRating</td>
-                <td>
-                    <div>
-                        <a asp-controller="Review" asp-action="Delete" asp-route-id="@r.Id">
-                            <button class="btn btn-danger" type="button">Delete</button>
-                        </a>
-                    </div>
-                </td>
-            </tr>
+        <tr>
+            
+            <td>
+                <a asp-controller="Review" asp-action="Details" asp-route-id="@r.Id">
+                    @r.Title
+                </a>
+            </td>
+            
+            <td>@r.AuthorRating</td>
+            <td>
+                <div class="btn-group">
+                    <a asp-controller="Review" asp-action="Edit"
+                       asp-route-id="@r.Id" class="btn btn-primary" type="button">
+                        Edit
+                    </a>
+
+                    <a asp-controller="Review" asp-action="Delete"
+                       asp-route-id="@r.Id" class="btn btn-danger btn-group" type="button">
+                        Delete
+                    </a>
+                </div>
+            </td>
+        </tr>
         }
     </tbody>
 </table>

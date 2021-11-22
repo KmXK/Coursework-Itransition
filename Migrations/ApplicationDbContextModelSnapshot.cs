@@ -45,6 +45,14 @@ namespace Coursework.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168"),
+                            ConcurrencyStamp = "5b2101ec-f391-4762-95f4-b59f9b498b92",
+                            Name = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Coursework.Domain.Entities.ApplicationUser", b =>
@@ -114,6 +122,23 @@ namespace Coursework.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"),
+                            AccessFailedCount = 0,
+                            AvatarUrl = "/Files/no_avatar.jpg",
+                            ConcurrencyStamp = "cb884e20-6cbb-4f93-b6e0-f8c6082695a6",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB4tO/cXACoYPEp7UcbkNTxtCnkjG2CsZp3QY/JBt/uvEAGwp4fdwoa47Z+G3NMvbg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Coursework.Models.Comment", b =>
@@ -171,6 +196,46 @@ namespace Coursework.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("Coursework.Models.ReviewRating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ReviewId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("ReviewRating");
+                });
+
+            modelBuilder.Entity("Coursework.Models.UserRating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRating");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -248,11 +313,17 @@ namespace Coursework.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<Guid>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -274,6 +345,20 @@ namespace Coursework.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Coursework.Domain.Entities.ApplicationUserRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
+
+                    b.HasDiscriminator().HasValue("ApplicationUserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"),
+                            RoleId = new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168")
+                        });
+                });
+
             modelBuilder.Entity("Coursework.Models.Comment", b =>
                 {
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", "Author")
@@ -290,6 +375,20 @@ namespace Coursework.Migrations
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
+                });
+
+            modelBuilder.Entity("Coursework.Models.ReviewRating", b =>
+                {
+                    b.HasOne("Coursework.Models.Review", "Review")
+                        .WithMany("Ratings")
+                        .HasForeignKey("ReviewId");
+                });
+
+            modelBuilder.Entity("Coursework.Models.UserRating", b =>
+                {
+                    b.HasOne("Coursework.Domain.Entities.ApplicationUser", "User")
+                        .WithMany("Ratings")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

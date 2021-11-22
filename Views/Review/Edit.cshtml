@@ -1,0 +1,27 @@
+﻿@model Coursework.Models.EditReviewViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<form class="mb-3" asp-controller="Review" asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" name=""/>
+    <div class="container">
+        <label class="col-2">Title</label>
+        <input class="col-4" type="text" asp-for="@Model.Title" />
+        <span asp-validation-for="@Model.Title"></span>
+    </div>
+    <br />
+    <div class="container">
+        <label class="col-2">Text</label>
+        <input class="col-10" type="text" asp-for="@Model.Text" />
+    </div>
+    <br/>
+    <div class="container">
+        <label class="col-2">Rating</label>
+        <input class="col-4" type="number" min="0" max="10" asp-for="@Model.Rating"/>
+    </div>
+
+    <input type="submit" class="btn btn-primary" />
+</form>
