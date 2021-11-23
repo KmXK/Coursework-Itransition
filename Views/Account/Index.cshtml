@@ -43,7 +43,7 @@
                         Edit
                     </a>
 
-                    <a asp-controller="Review" asp-action="Delete"
+                    <a asp-controller="Review" asp-action="Delete" asp-route-returnUrl="@Context.Request.GetDisplayUrl()"
                        asp-route-id="@r.Id" class="btn btn-danger btn-group" type="button">
                         Delete
                     </a>

@@ -78,7 +78,10 @@ namespace Coursework.Controllers
                 var review = await _context.Reviews.FindAsync(model.Id);
                 review.AuthorRating = model.Rating;
                 review.Title = model.Title;
-                review.Text = model.Text;
+
+
+                var sanitizer = new HtmlSanitizer();
+                review.Text = sanitizer.Sanitize(Markdown.ToHtml(model.Text));
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
