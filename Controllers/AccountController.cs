@@ -25,13 +25,18 @@ namespace Coursework.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
-
-
+            
             return View(new AccountViewModel()
             {
                 User = user,
                 Reviews = _context.Reviews.Include(r=>r.Author).Where(r=>r.Author==user).ToList()
             });
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Admin()
+        {
+            return View();
         }
     }
 }

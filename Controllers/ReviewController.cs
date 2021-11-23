@@ -2,6 +2,8 @@
 using Coursework.Domain;
 using Coursework.Domain.Entities;
 using Coursework.Models;
+using Ganss.XSS;
+using Markdig;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -31,10 +33,13 @@ namespace Coursework.Controllers
         {
             if (ModelState.IsValid)
             {
+                var sanitizer = new HtmlSanitizer();
+                string textHtml = sanitizer.Sanitize(Markdown.ToHtml(model.Text));
+
                 var rewiew = new Review()
                 {
                     Title = model.Title,
-                    Text = model.Text,
+                    Text = textHtml,
                     AuthorRating = model.Rating,
                     Author = await _userManager.FindByIdAsync(_userManager.GetUserId(User))
                 };
@@ -98,26 +103,35 @@ namespace Coursework.Controllers
             return View(rewiew);
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string returnUrl = null)
         {
             if (id == null)
                 return NotFound();
 
-            var rewiew = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == id);
+            var review = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == id);
 
-            if (rewiew == null)
+            if (review == null)
                 return NotFound();
 
-            return View(rewiew);
+            ViewBag.ReturnUrl = returnUrl;
+
+            return View(review);
         }
 
         [HttpPost, ActionName(nameof(Delete))]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, string returnUrl = null)
         {
-            var rewiew = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == id);
-            _context.Reviews.Remove(rewiew);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
+            var review = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == id);
+            if(review != null)
+            {
+                _context.Reviews.Remove(review);
+                await _context.SaveChangesAsync();
+            }
+
+            if (!string.IsNullOrWhiteSpace(returnUrl))
+                return Redirect(returnUrl);
+            else
+                return RedirectToAction("Index", "Home");
         }
     }
 }

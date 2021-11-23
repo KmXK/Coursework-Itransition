@@ -1,7 +1,9 @@
 using Coursework.Domain;
 using Coursework.Domain.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +36,14 @@ namespace Coursework
                     options.Password.RequiredUniqueChars = 1;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = new PathString("/Authorization/Login");
+                options.AccessDeniedPath = new PathString("/Authorization/AccessDenied");
+            });
 
             services.AddControllersWithViews();
         }

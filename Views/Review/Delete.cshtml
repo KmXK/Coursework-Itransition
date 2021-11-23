@@ -4,7 +4,7 @@
 
 <div style="display: flex; flex-direction: row">
     <div class="mr-2" style="margin-right: 10px">
-        <form method="post" asp-controller="Review" asp-action="Delete">
+        <form method="post" asp-controller="Review" asp-action="Delete" asp-route-returnUrl="@ViewBag.ReturnUrl">
             <button type="submit" class="btn btn-danger">Delete</button>
         </form>
     </div>

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Coursework.Domain;
 using Coursework.Domain.Entities;
@@ -10,7 +8,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Coursework.Controllers
 {
@@ -120,22 +117,13 @@ namespace Coursework.Controllers
         [HttpPost]
         public async Task<IActionResult> SignOut()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
-                _context.Reviews.Add(new Review()
-                {
-                    Author = user,
-                    AuthorRating = 10,
-                    Comments = new List<Comment>(),
-                    Text = "Hello world!",
-                    Title = "Hello"
-                });
-                await _context.SaveChangesAsync();
-            }
-
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
