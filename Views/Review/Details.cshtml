@@ -7,30 +7,22 @@
 
 <link rel="stylesheet" href="~/lib/bootstrap-star-rating/themes/krajee-svg/theme.min.js" />
 
-<div class="d-flex justify-content-between align-items-center">
-    <div class="align-items-center">
-        <text>@Model.Title</text>
-    </div>
-    <div class="d-flex flex-row">
-        <img src="@Model.Author.AvatarUrl" alt="avatar" width="64" height="64" />
-        <div class="container">
-            <h3 class="m-0 p-0 align-items-center">@Model.Author.UserName</h3>
+<div class="border rounded-2 p-2">
+    <div class="col-md-12 ps-0 pe-0">
+        <h2 class="pb-3 mb-4 border-bottom">@Model.Title</h2>
+        
+        <div>
+            @Html.Raw(_markdownToHtmlService.ConvertMarkdownToHtml(Model.Text))
         </div>
     </div>
 </div>
 
-<br />
-
-<div>
-    <text>
-        @Html.Raw(_markdownToHtmlService.ConvertMarkdownToHtml(Model.Text))
-    </text>
-</div>
-
 @if (User.Identity.IsAuthenticated)
 {
-    <input id="input-id" name="input-name" type="number" class="rating" data-size="sm"
-           data-show-clear="false" min="0" max="5" value="@ViewBag.Rating" step="1" data-show-caption="true">
+    <br />
+    <label for="ratingInput">Rating this review: </label>
+    <input id="ratingInput" name="input-name" type="number" class="rating" data-size="sm"
+           data-show-clear="false" min="0" max="5" value="@ViewBag.Rating" step="1" data-show-caption="true"/>
 }
 
 @section Scripts
@@ -40,8 +32,18 @@
 
     <script>
         $(document).ready(function () {
-            $("#input-id").rating().on("rating:change", function(event, value, caption) {
-                console.log("Value is " + value);
+            $("#ratingInput").rating().on("rating:change", function(event, value, caption) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SetRating", "Review")',
+                    data: {
+                        reviewId: @Model.Id,
+                        rating: value
+                    },
+                    success: function (data) {
+                        alert('Your data updated');
+                    }
+                });
             });
         });
     </script>

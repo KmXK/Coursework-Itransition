@@ -54,7 +54,8 @@ namespace Coursework.Controllers
         {
             var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
 
-            var review = await _context.Reviews.Include(r => r.Author).FirstOrDefaultAsync(r => r.Id == id);
+            var review = await _context.Reviews.Include(r => r.Author)
+                .FirstOrDefaultAsync(r => r.Id == id);
 
             if (review.Author != user)
                 return Unauthorized();
@@ -107,6 +108,35 @@ namespace Coursework.Controllers
             }
 
             return View(review);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SetRating(int reviewId, int rating)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var review = await _context.Reviews
+                    .Include(r => r.Author)
+                    .Include(r => r.Ratings)
+                    .FirstOrDefaultAsync(r => r.Id == reviewId);
+                var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
+                var reviewRating = review.Ratings.FirstOrDefault(r => r.User == user);
+                if (reviewRating != null)
+                    reviewRating.Rating = rating;
+                else
+                {
+                    review.Ratings.Add(new ReviewRating()
+                    {
+                        User = user,
+                        Rating = rating
+                    });
+                }
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            else
+                return NotFound();
         }
 
         public async Task<IActionResult> Delete(int? id, string returnUrl = null)

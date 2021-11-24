@@ -4,16 +4,15 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <br/>
+<div>
     <div class="d-grid gap-3" style="grid-template-columns: 2fr 1fr;">
-        <div class="container">
+        <div class="pt-2">
             @foreach(var r in Model)
             {
                 await Html.RenderPartialAsync("ReviewPartPartial", r);
             }   
         </div>
-        <div class="container">
+        <div class="pt-2">
             <text class="text-black">Hello world!</text>
         </div>
     </div>

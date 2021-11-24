@@ -2,14 +2,14 @@
 @using Coursework.Domain.Entities
 @using Microsoft.AspNetCore.Hosting
 @inject UserManager<ApplicationUser> _userManager
-@inject IWebHostEnvironment webHostEnvironment
+@inject IWebHostEnvironment _webHostEnvironment
 
-    <header class="p-3 bg-light text-white">
+    <header class="py-3 bg-light text-white">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a class="align-items-center text-black text-decoration-none
                       col-12 col-lg-auto me-lg-auto"
-                   asp-area="" asp-controller="Home" asp-action="Index">Coursework</a>
+                   asp-controller="Home" asp-action="Index">Coursework</a>
 
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 flex-last">
                     <input type="search" class="form-control form-control-dark" placeholder="Search..."
