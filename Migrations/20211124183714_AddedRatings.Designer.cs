@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coursework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211122190028_AddedRatings")]
+    [Migration("20211124183714_AddedRatings")]
     partial class AddedRatings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,6 +47,14 @@ namespace Coursework.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168"),
+                            ConcurrencyStamp = "23b73206-806f-441b-8c5e-f28bdc1ed0bf",
+                            Name = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Coursework.Domain.Entities.ApplicationUser", b =>
@@ -116,6 +124,23 @@ namespace Coursework.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"),
+                            AccessFailedCount = 0,
+                            AvatarUrl = "/Files/no_avatar.jpg",
+                            ConcurrencyStamp = "527fc978-e4cf-438f-b504-9efda8cfb6e5",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHwPxrpWuwFywscADKVmq9MWxt7gAOsD8V003tKSDAKg9C8c2n3HkliaiGsVetWM6Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("Coursework.Models.Comment", b =>
@@ -188,9 +213,14 @@ namespace Coursework.Migrations
                     b.Property<int?>("ReviewId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ReviewId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ReviewRating");
                 });
@@ -290,11 +320,17 @@ namespace Coursework.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<Guid>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -314,6 +350,20 @@ namespace Coursework.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Coursework.Domain.Entities.ApplicationUserRole", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
+
+                    b.HasDiscriminator().HasValue("ApplicationUserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"),
+                            RoleId = new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168")
+                        });
                 });
 
             modelBuilder.Entity("Coursework.Models.Comment", b =>
@@ -336,9 +386,13 @@ namespace Coursework.Migrations
 
             modelBuilder.Entity("Coursework.Models.ReviewRating", b =>
                 {
-                    b.HasOne("Coursework.Models.Review", "Review")
+                    b.HasOne("Coursework.Models.Review", null)
                         .WithMany("Ratings")
                         .HasForeignKey("ReviewId");
+
+                    b.HasOne("Coursework.Domain.Entities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Coursework.Models.UserRating", b =>

@@ -16,12 +16,12 @@ namespace Coursework.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168"), "5b2101ec-f391-4762-95f4-b59f9b498b92", "Admin", null });
+                values: new object[] { new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168"), "f1d39077-c584-42e3-bbfa-cdd5a652d121", "Admin", null });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"), 0, "/Files/no_avatar.jpg", "cb884e20-6cbb-4f93-b6e0-f8c6082695a6", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEB4tO/cXACoYPEp7UcbkNTxtCnkjG2CsZp3QY/JBt/uvEAGwp4fdwoa47Z+G3NMvbg==", null, false, "", false, "admin" });
+                values: new object[] { new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"), 0, "/Files/no_avatar.jpg", "b214df77-3a0e-46a1-90d6-8b0407a98be8", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEAS/5uw8rdo5P2I7W9SiHY+URKLVDgKT6O+AUyzqGmJbKN/RvLUDYMsb35VJVtA37Q==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

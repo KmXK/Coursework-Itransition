@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Coursework.Domain;
 using Coursework.Domain.Entities;
 using Coursework.Models;
@@ -33,13 +34,10 @@ namespace Coursework.Controllers
         {
             if (ModelState.IsValid)
             {
-                var sanitizer = new HtmlSanitizer();
-                string textHtml = sanitizer.Sanitize(Markdown.ToHtml(model.Text));
-
                 var rewiew = new Review()
                 {
                     Title = model.Title,
-                    Text = textHtml,
+                    Text = model.Text,
                     AuthorRating = model.Rating,
                     Author = await _userManager.FindByIdAsync(_userManager.GetUserId(User))
                 };
@@ -78,10 +76,7 @@ namespace Coursework.Controllers
                 var review = await _context.Reviews.FindAsync(model.Id);
                 review.AuthorRating = model.Rating;
                 review.Title = model.Title;
-
-
-                var sanitizer = new HtmlSanitizer();
-                review.Text = sanitizer.Sanitize(Markdown.ToHtml(model.Text));
+                review.Text = model.Text;
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
@@ -96,14 +91,22 @@ namespace Coursework.Controllers
             if (id == null)
                 return NotFound();
 
-            var rewiew = await _context.Reviews
+            var review = await _context.Reviews
                 .Include(r=>r.Author)
+                .Include(r=>r.Ratings)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
-            if (rewiew == null)
+            if (review == null)
                 return NotFound();
 
-            return View(rewiew);
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
+                var rating = review.Ratings.FirstOrDefault(r => r.User == user);
+                ViewBag.Rating = rating?.Rating ?? 0;
+            }
+
+            return View(review);
         }
 
         public async Task<IActionResult> Delete(int? id, string returnUrl = null)

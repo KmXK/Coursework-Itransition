@@ -50,7 +50,7 @@ namespace Coursework.Migrations
                         new
                         {
                             Id = new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168"),
-                            ConcurrencyStamp = "5b2101ec-f391-4762-95f4-b59f9b498b92",
+                            ConcurrencyStamp = "23b73206-806f-441b-8c5e-f28bdc1ed0bf",
                             Name = "Admin"
                         });
                 });
@@ -129,11 +129,11 @@ namespace Coursework.Migrations
                             Id = new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"),
                             AccessFailedCount = 0,
                             AvatarUrl = "/Files/no_avatar.jpg",
-                            ConcurrencyStamp = "cb884e20-6cbb-4f93-b6e0-f8c6082695a6",
+                            ConcurrencyStamp = "527fc978-e4cf-438f-b504-9efda8cfb6e5",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB4tO/cXACoYPEp7UcbkNTxtCnkjG2CsZp3QY/JBt/uvEAGwp4fdwoa47Z+G3NMvbg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHwPxrpWuwFywscADKVmq9MWxt7gAOsD8V003tKSDAKg9C8c2n3HkliaiGsVetWM6Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -211,9 +211,14 @@ namespace Coursework.Migrations
                     b.Property<int?>("ReviewId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ReviewId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ReviewRating");
                 });
@@ -379,9 +384,13 @@ namespace Coursework.Migrations
 
             modelBuilder.Entity("Coursework.Models.ReviewRating", b =>
                 {
-                    b.HasOne("Coursework.Models.Review", "Review")
+                    b.HasOne("Coursework.Models.Review", null)
                         .WithMany("Ratings")
                         .HasForeignKey("ReviewId");
+
+                    b.HasOne("Coursework.Domain.Entities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Coursework.Models.UserRating", b =>

@@ -1,15 +1,48 @@
-﻿@model Coursework.Models.Review
+﻿@inject MarkdownToHtmlService _markdownToHtmlService
+@model Coursework.Models.Review
+
+@{
+    ViewData["Title"] = "Review";
+}
+
+<link rel="stylesheet" href="~/lib/bootstrap-star-rating/themes/krajee-svg/theme.min.js" />
 
 <div class="d-flex justify-content-between align-items-center">
-    <h1>Title: @Model.Title</h1>
+    <div class="align-items-center">
+        <text>@Model.Title</text>
+    </div>
     <div class="d-flex flex-row">
-        <img src="@Model.Author.AvatarUrl" alt="avatar" width="64" height="64"/>
+        <img src="@Model.Author.AvatarUrl" alt="avatar" width="64" height="64" />
         <div class="container">
             <h3 class="m-0 p-0 align-items-center">@Model.Author.UserName</h3>
         </div>
     </div>
 </div>
 
+<br />
+
 <div>
-    <text>@Html.Raw(Model.Text)</text>
+    <text>
+        @Html.Raw(_markdownToHtmlService.ConvertMarkdownToHtml(Model.Text))
+    </text>
 </div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <input id="input-id" name="input-name" type="number" class="rating" data-size="sm"
+           data-show-clear="false" min="0" max="5" value="@ViewBag.Rating" step="1" data-show-caption="true">
+}
+
+@section Scripts
+{
+    <script src="~/lib/bootstrap-star-rating/js/star-rating.min.js"></script>
+    <script src="~/lib/bootstrap-star-rating/themes/krajee-svg/theme.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#input-id").rating().on("rating:change", function(event, value, caption) {
+                console.log("Value is " + value);
+            });
+        });
+    </script>
+}

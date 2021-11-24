@@ -1,5 +1,6 @@
 using Coursework.Domain;
 using Coursework.Domain.Entities;
+using Coursework.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -46,6 +47,8 @@ namespace Coursework
             });
 
             services.AddControllersWithViews();
+
+            services.AddSingleton<MarkdownToHtmlService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coursework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211122210337_AddedAdminAccount")]
+    [Migration("20211124183600_AddedAdminAccount")]
     partial class AddedAdminAccount
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,7 +52,7 @@ namespace Coursework.Migrations
                         new
                         {
                             Id = new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168"),
-                            ConcurrencyStamp = "5b2101ec-f391-4762-95f4-b59f9b498b92",
+                            ConcurrencyStamp = "f1d39077-c584-42e3-bbfa-cdd5a652d121",
                             Name = "Admin"
                         });
                 });
@@ -131,11 +131,11 @@ namespace Coursework.Migrations
                             Id = new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"),
                             AccessFailedCount = 0,
                             AvatarUrl = "/Files/no_avatar.jpg",
-                            ConcurrencyStamp = "cb884e20-6cbb-4f93-b6e0-f8c6082695a6",
+                            ConcurrencyStamp = "b214df77-3a0e-46a1-90d6-8b0407a98be8",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB4tO/cXACoYPEp7UcbkNTxtCnkjG2CsZp3QY/JBt/uvEAGwp4fdwoa47Z+G3NMvbg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAS/5uw8rdo5P2I7W9SiHY+URKLVDgKT6O+AUyzqGmJbKN/RvLUDYMsb35VJVtA37Q==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -198,46 +198,6 @@ namespace Coursework.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("Coursework.Models.ReviewRating", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ReviewId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReviewId");
-
-                    b.ToTable("ReviewRating");
-                });
-
-            modelBuilder.Entity("Coursework.Models.UserRating", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserRating");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -377,20 +337,6 @@ namespace Coursework.Migrations
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
-                });
-
-            modelBuilder.Entity("Coursework.Models.ReviewRating", b =>
-                {
-                    b.HasOne("Coursework.Models.Review", "Review")
-                        .WithMany("Ratings")
-                        .HasForeignKey("ReviewId");
-                });
-
-            modelBuilder.Entity("Coursework.Models.UserRating", b =>
-                {
-                    b.HasOne("Coursework.Domain.Entities.ApplicationUser", "User")
-                        .WithMany("Ratings")
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

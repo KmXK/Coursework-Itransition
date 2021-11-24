@@ -10,6 +10,10 @@
       "provider": "jsdelivr",
       "library": "simplemde@1.11.2",
       "destination": "wwwroot/lib/simplemde/"
+    },
+    {
+      "library": "bootstrap-star-rating@4.1.2",
+      "destination": "wwwroot/lib/bootstrap-star-rating/"
     }
   ]
 }

@@ -1,9 +1,11 @@
-﻿namespace Coursework.Models
+﻿using Coursework.Domain.Entities;
+
+namespace Coursework.Models
 {
     public class ReviewRating
     {
         public int Id { get; set; }
-        public Review Review { get; set; }
+        public ApplicationUser User { get; set; }
         public int Rating { get; set; }
     }
 }
