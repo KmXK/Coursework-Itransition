@@ -8,12 +8,22 @@
 <link rel="stylesheet" href="~/lib/bootstrap-star-rating/themes/krajee-svg/theme.min.js" />
 
 <div class="border rounded-2 p-2">
-    <div class="col-md-12 ps-0 pe-0">
-        <h2 class="pb-3 mb-4 border-bottom">@Model.Title</h2>
-        
-        <div>
-            @Html.Raw(_markdownToHtmlService.ConvertMarkdownToHtml(Model.Text))
+    <div class="col-md-12">
+        <div class="pb-3 mb-4 border-bottom d-flex">
+            <a class="d-flex align-items-center text-muted text-decoration-none">
+                <img class="mb-0 me-2 rounded-circle" src="@Model.Author.AvatarUrl" width="32" height="32" alt="Avatar">
+                <span>@Model.Author.UserName</span>
+                <i class="fa fa-thumbs-up"></i>
+            </a>
+
+            <div class="d-flex col-md-10 align-items-center justify-content-center text-center text-wrap text-break ms-2">
+                <h2>@Model.Title</h2>
+            </div>
         </div>
+    </div>
+
+    <div class="col-md-12">
+        @Html.Raw(_markdownToHtmlService.ConvertMarkdownToHtml(Model.Text))
     </div>
 </div>
 
@@ -23,7 +33,7 @@
     <label for="ratingInput">Rating this review: </label>
     <input id="ratingInput" name="input-name" type="number" class="rating" data-size="sm"
            data-show-clear="false" min="0" max="5" value="@ViewBag.Rating" step="1" data-show-caption="true"
-           data-keyboard-enabled="false"/>
+           data-keyboard-enabled="false" />
 }
 
 @section Scripts
@@ -46,3 +56,4 @@
         });
     </script>
 }
+
