@@ -18,7 +18,12 @@ namespace Coursework.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.Reviews.Include(r => r.Author).ToList());
+            var reviews = _context.Reviews
+                .Include(r => r.Ratings)
+                .Include(r => r.Author)
+                .ToList();
+
+            return View(reviews);
         }
     }
 }
