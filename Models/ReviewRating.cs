@@ -7,5 +7,6 @@ namespace Coursework.Models
         public int Id { get; set; }
         public ApplicationUser User { get; set; }
         public int Rating { get; set; }
+        public int ReviewId { get; set; }
     }
 }

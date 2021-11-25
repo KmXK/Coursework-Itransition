@@ -22,14 +22,12 @@
     <br />
     <label for="ratingInput">Rating this review: </label>
     <input id="ratingInput" name="input-name" type="number" class="rating" data-size="sm"
-           data-show-clear="false" min="0" max="5" value="@ViewBag.Rating" step="1" data-show-caption="true"/>
+           data-show-clear="false" min="0" max="5" value="@ViewBag.Rating" step="1" data-show-caption="true"
+           data-keyboard-enabled="false"/>
 }
 
 @section Scripts
 {
-    <script src="~/lib/bootstrap-star-rating/js/star-rating.min.js"></script>
-    <script src="~/lib/bootstrap-star-rating/themes/krajee-svg/theme.min.js"></script>
-
     <script>
         $(document).ready(function () {
             $("#ratingInput").rating().on("rating:change", function(event, value, caption) {
