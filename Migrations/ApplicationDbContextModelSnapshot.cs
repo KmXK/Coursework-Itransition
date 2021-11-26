@@ -50,7 +50,7 @@ namespace Coursework.Migrations
                         new
                         {
                             Id = new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168"),
-                            ConcurrencyStamp = "28e86af8-fb18-4859-b819-de904d9561ee",
+                            ConcurrencyStamp = "9c3d8c45-171a-4513-84f2-f49e06954828",
                             Name = "Admin"
                         });
                 });
@@ -129,11 +129,11 @@ namespace Coursework.Migrations
                             Id = new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"),
                             AccessFailedCount = 0,
                             AvatarUrl = "/Files/no_avatar.jpg",
-                            ConcurrencyStamp = "9b38f1fc-8950-4a80-b1bb-67db84f76bb4",
+                            ConcurrencyStamp = "9bece419-5e7b-40ba-89ed-5554d6e4f1ef",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFco1ZpXSQ9ht2CubZi0ZbbYyYeNPyKp+zQrsvP5wXd3LK7On2FRbcY1dmqho1qNkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEELMGG0A15L7CCLOzafI54uhWTTkgDqPI/zaBJ3qVspF798r7mKuGsMlzeD60fEc4A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
