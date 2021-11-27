@@ -1,11 +1,25 @@
-﻿@model Coursework.ViewModels.SettingsViewModel
+﻿@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Builder
+@model Coursework.ViewModels.SettingsViewModel
+
+@inject IOptions<RequestLocalizationOptions> _locOptions
 
 <h2>Settings</h2>
 
+@{
+    var cultureItems = _locOptions.Value.SupportedCultures
+        .Select(c => new SelectListItem
+        {
+            Value = c.Name,
+            Text = c.NativeName
+        })
+        .ToList();
+}
+
 <form method="post" asp-controller="Account" asp-action="Settings">
     <div class="col-xl-3 col-md-4 col-sm-6 col-12">
-        <select class="form-select" asp-for="TargetLanguage"
-                asp-items="new SelectList(Model.Languages, Model.TargetLanguage)">
+        <select class="form-select" asp-items="@cultureItems"
+                asp-for="TargetCulture">
         </select>
         <br />
         <select class="form-select" asp-for="TargetTheme"
