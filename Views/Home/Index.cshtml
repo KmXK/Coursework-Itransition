@@ -1,8 +1,13 @@
-﻿@model IEnumerable<Coursework.Models.Review>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model IEnumerable<Coursework.Models.Review>
+
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<h1>NAME: @_sharedLocalizer["Name"]</h1>
 
 <div>
     <div class="d-grid gap-3" style="grid-template-columns: 2fr 1fr;">
