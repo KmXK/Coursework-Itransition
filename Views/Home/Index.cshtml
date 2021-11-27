@@ -1,5 +1,4 @@
-﻿@using System.Globalization
-@model IEnumerable<Coursework.Models.Review>
+﻿@model IEnumerable<Coursework.Models.Review>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -10,53 +9,7 @@
         <div class="pt-2">
             @foreach (var r in Model)
             {
-                <div class="card mb-2">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="row text-center">
-                                    <div>
-                                        <img class="rounded-circle shadow-1-strong" src="@r.Author.AvatarUrl" alt="avatar" width="60" height="60">
-                                    </div>
-                                </div>
-
-                                <div class="row text-center">
-                                    <h6 class="fw-bold text-primary mb-1">
-                                        @r.Author.UserName (@(r.Author.Ratings?.Average(a => a.Rating) ?? 0))
-                                    </h6>
-                                </div>
-                            </div>
-
-                            <div class="col-md-10 row">
-                                <div class="col-md-8">
-                                    <a asp-controller="Review" asp-action="Details" asp-route-id="@r.Id">
-                                        <h3>@r.Title</h3>
-                                    </a>
-                                </div>
-
-                                <div class="col-md-4 text-end">
-                                    @{
-                                        var hasRating = r.Ratings != null && r.Ratings.Any();
-                                        if (hasRating)
-                                        {
-                                            var rating = r.Ratings.Average(r => r.Rating);
-                                            <input id="ratingInput" type="number" class="rating" data-size="xs"
-                                                   data-show-clear="false" min="0" max="5"
-                                                   value="@rating.ToString("#.00", CultureInfo.InvariantCulture)" step="1"
-                                                   data-show-caption="false" data-keyboard-enabled="false" data-mouse-enabled="false"
-                                                   data-display-only="true" />
-                                        }
-                                        else
-                                        {
-                                            <label>Нет рейтинга</label>
-                                        }
-                                    }
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                await Html.RenderPartialAsync("PartReviewPartial.cshtml", r);
             }
         </div>
         <div class="pt-2">

@@ -40,6 +40,10 @@ namespace Coursework.Domain
                 UserId = new Guid("{252352F7-E127-4C9D-AD06-DD6B859043D8}"),
                 RoleId = new Guid("{7A08F647-1C30-4453-B46B-A9AD1A79C168}")
             });
+
+            builder.Entity<Review>()
+                .HasIndex(p => p.SearchVector)
+                .HasMethod("GIN");
         }
     }
 }

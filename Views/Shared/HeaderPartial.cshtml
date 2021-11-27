@@ -11,9 +11,10 @@
                       col-12 col-lg-auto me-lg-auto"
                    asp-controller="Home" asp-action="Index">Coursework</a>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 flex-last">
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 flex-last"
+                      asp-controller="Home" asp-action="Search">
                     <input type="search" class="form-control form-control-dark" placeholder="Search..."
-                           aria-label="Search">
+                           aria-label="Search" name="searchString">
                 </form>
                 <div class="text-end">
                     @if (!User.Identity.IsAuthenticated)
@@ -31,7 +32,7 @@
                             </a>
                             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
                                 <li><a class="dropdown-item" asp-controller="Account" asp-action="Index">Личный кабинет</a></li>
-                                <li><a class="dropdown-item" href="#">Настройки</a></li>
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Settings">Настройки</a></li>
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <li><a class="dropdown-item" asp-controller="Account" asp-action="Admin">Админка</a></li>
