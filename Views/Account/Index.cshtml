@@ -1,4 +1,6 @@
-﻿@model Coursework.Models.AccountViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model Coursework.Models.AccountViewModel
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 
 @{
     ViewBag.Title = @Model.User.UserName;
@@ -12,16 +14,16 @@
 
 <div class="text-end mb-2">
     <a asp-controller="Review" asp-action="Create">
-        <button class="btn btn-warning" type="button">Create</button>
+        <button class="btn btn-warning" type="button">@_sharedLocalizer["Create"]</button>
     </a>
 </div>
 
 <table id="reviewTable" class="table">
     <thead>
     <tr>
-        <th>Title</th>
-        <th>Rating</th>
-        <th>Actions</th>
+        <th>@_sharedLocalizer["Title"]</th>
+        <th>@_sharedLocalizer["Rating"]</th>
+        <th>@_sharedLocalizer["Actions"]</th>
     </tr>
     </thead>
     <tbody>
@@ -40,12 +42,12 @@
                 <div class="btn-group">
                     <a asp-controller="Review" asp-action="Edit"
                        asp-route-id="@r.Id" class="btn btn-primary" type="button">
-                        Edit
+                        @_sharedLocalizer["Edit"]
                     </a>
 
                     <a asp-controller="Review" asp-action="Delete" asp-route-returnUrl="@Context.Request.GetDisplayUrl()"
                        asp-route-id="@r.Id" class="btn btn-danger btn-group" type="button">
-                        Delete
+                        @_sharedLocalizer["Delete"]
                     </a>
                 </div>
             </td>

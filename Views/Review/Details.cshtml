@@ -1,4 +1,6 @@
 ﻿@inject MarkdownToHtmlService _markdownToHtmlService
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 @model Coursework.Models.Review
 
 @{
@@ -30,7 +32,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <br />
-    <label for="ratingInput">Rating this review: </label>
+    <label for="ratingInput">@_sharedLocalizer["RatingThisReview"] </label>
     <input id="ratingInput" name="input-name" type="number" class="rating" data-size="sm"
            data-show-clear="false" min="0" max="5" value="@ViewBag.Rating" step="1" data-show-caption="true"
            data-keyboard-enabled="false" />

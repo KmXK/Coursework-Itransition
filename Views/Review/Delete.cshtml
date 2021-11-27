@@ -1,13 +1,16 @@
 ﻿@model Coursework.Models.Review
 
-<h3>Вы действительно хотите удалить обзор "@Model.Title"?</h3>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
+
+<h3>@_sharedLocalizer["ConfirmDelete"] "@Model.Title"?</h3>
 
 <div style="display: flex; flex-direction: row">
     <div class="mr-2" style="margin-right: 10px">
         <form method="post" asp-controller="Review" asp-action="Delete" asp-route-returnUrl="@ViewBag.ReturnUrl">
-            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="submit" class="btn btn-danger">@_sharedLocalizer["Delete"]</button>
         </form>
     </div>
 
-    <a href="@ViewBag.ReturnUrl"><button class="btn btn-secondary">Cancel</button></a>
+    <a href="@ViewBag.ReturnUrl"><button class="btn btn-secondary">@_sharedLocalizer["Cancel"]</button></a>
 </div>

@@ -1,8 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Coursework.Domain.Entities
 @using Microsoft.AspNetCore.Hosting
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject UserManager<ApplicationUser> _userManager
 @inject IWebHostEnvironment _webHostEnvironment
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 
     <header class="py-3 bg-light text-white">
         <div class="container">
@@ -13,14 +15,14 @@
 
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 flex-last"
                       asp-controller="Home" asp-action="Search">
-                    <input type="search" class="form-control form-control-dark" placeholder="Search..."
+                    <input type="search" class="form-control form-control-dark" placeholder="@_sharedLocalizer["SearchPlaceholder"]"
                            aria-label="Search" name="searchString">
                 </form>
                 <div class="text-end">
                     @if (!User.Identity.IsAuthenticated)
                     {
-                        <a asp-controller="Authorization" asp-action="Login" class="btn btn-outline-dark me-2">Login</a>
-                        <a asp-controller="Authorization" asp-action="Register" class="btn btn-warning">Register</a>
+                    <a asp-controller="Authorization" asp-action="Login" class="btn btn-outline-dark me-2">@_sharedLocalizer["Login"]</a>
+                        <a asp-controller="Authorization" asp-action="Register" class="btn btn-warning">@_sharedLocalizer["Register"]</a>
                     }
                     else
                     {
@@ -31,16 +33,16 @@
                                 <img src="@user.AvatarUrl" alt="mdo" width="32" height="32" class="rounded-circle">
                             </a>
                             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Index">Личный кабинет</a></li>
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Settings">Настройки</a></li>
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Index">@_sharedLocalizer["PersonalAccount"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Settings">@_sharedLocalizer["Settings"]</a></li>
                                 @if (User.IsInRole("Admin"))
                                 {
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Admin">Админка</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Admin">@_sharedLocalizer["AdminPanel"]</a></li>
                                 }
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form method="post" asp-controller="Authorization" asp-action="SignOut">
-                                        <input class="dropdown-item" type="submit" value="Выйти" />
+                                        <input class="dropdown-item" type="submit" value="@_sharedLocalizer["SignOut"]" />
                                     </form>
                                 </li>
                             </ul>

@@ -1,60 +1,64 @@
 ﻿@using System.Globalization
 @model Coursework.Models.Review
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
+
 @*<div class="card mb-2">
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-1">
-                <div class="row">
-                    <div>
-                        <img class="rounded-circle shadow-1-strong" src="@Model.Author.AvatarUrl"
-                             alt="avatar" width="60" height="60">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-1">
+                    <div class="row">
+                        <div>
+                            <img class="rounded-circle shadow-1-strong" src="@Model.Author.AvatarUrl"
+                                 alt="avatar" width="60" height="60">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <h6 class="fw-bold text-primary mb-1">
+                            @Model.Author.UserName (@(Model.Author.Ratings?.Average(a => a.Rating) ?? 0))
+                        </h6>
                     </div>
                 </div>
 
-                <div class="row">
-                    <h6 class="fw-bold text-primary mb-1">
-                        @Model.Author.UserName (@(Model.Author.Ratings?.Average(a => a.Rating) ?? 0))
-                    </h6>
-                </div>
-            </div>
+                <div class="col-md-11 row">
+                    <div class="col-md-8 text-center">
+                        <a asp-controller="Review" asp-action="Details" asp-route-id="@Model.Id">
+                            <h3>@Model.Title</h3>
+                        </a>
+                    </div>
 
-            <div class="col-md-11 row">
-                <div class="col-md-8 text-center">
-                    <a asp-controller="Review" asp-action="Details" asp-route-id="@Model.Id">
-                        <h3>@Model.Title</h3>
-                    </a>
-                </div>
-
-                <div class="col-md-4 text-end">
-                    @{
-                        var hasRating = Model.Ratings != null && Model.Ratings.Any();
-                        if (hasRating)
-                        {
-                            var rating = Model.Ratings.Average(r => r.Rating);
-                            <input id="ratingInput" type="number" class="rating" data-size="xs"
-                                   data-show-clear="false" min="0" max="5"
-                                   value="@rating.ToString("#.00", CultureInfo.InvariantCulture)" step="1"
-                                   data-show-caption="false" data-keyboard-enabled="false" data-mouse-enabled="false"
-                                   data-display-only="true" />
+                    <div class="col-md-4 text-end">
+                        @{
+                            var hasRating = Model.Ratings != null && Model.Ratings.Any();
+                            if (hasRating)
+                            {
+                                var rating = Model.Ratings.Average(r => r.Rating);
+                                <input id="ratingInput" type="number" class="rating" data-size="xs"
+                                       data-show-clear="false" min="0" max="5"
+                                       value="@rating.ToString("#.00", CultureInfo.InvariantCulture)" step="1"
+                                       data-show-caption="false" data-keyboard-enabled="false" data-mouse-enabled="false"
+                                       data-display-only="true" />
+                            }
+                            else
+                            {
+                                <label>Нет рейтинга</label>
+                            }
                         }
-                        else
-                        {
-                            <label>Нет рейтинга</label>
-                        }
-                    }
-                </div>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 *@
 
 <div class="card">
     <div class="card-body">
         <img src="@Model.Author.AvatarUrl" alt="Avatar" class="rounded-circle" width="40" height="40">
         <h4 class="d-inline text-center">@Model.Author.UserName</h4>
-        
+
         @{
             var hasRating = Model.Ratings != null && Model.Ratings.Any();
             if (hasRating)
@@ -69,21 +73,13 @@
             }
             else
             {
-                <label class="d-inline">Нет рейтинга</label>
+                <label class="d-inline">@_sharedLocalizer["NoRating"]</label>
             }
         }
-        <br/>
+        <br />
         <a class="mb-0 mt-1" asp-controller="Review"
            asp-action="Details" asp-route-id="@Model.Id">
-            <h3>@Model.Title</h3></a>
+            <h3>@Model.Title</h3>
+        </a>
     </div>
 </div>
-
-Рейтинг
-Настройки:
-Тема
-Язык
-Группа
-Теги
-Админка
-Комменты

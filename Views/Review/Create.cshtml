@@ -1,5 +1,8 @@
 ﻿@model Coursework.Models.CreateRewiewViewModel
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
+
 @{
     ViewBag.Title = "Create";
 }
@@ -13,12 +16,12 @@
     </div>
     <br />
     <div class="container">
-        <label class="col-2">Text</label>
+        <label class="col-2">@_sharedLocalizer["Text"]</label>
         <textarea class="col-6" asp-for="Text" id="textInput"></textarea>
     </div>
     <br />
     <div class="container">
-        <label class="col-2">Rating</label>
+        <label class="col-2">@_sharedLocalizer["Rating"]</label>
         <input class="col-4" type="number" min="0" max="10" asp-for="Rating" />
     </div>
 

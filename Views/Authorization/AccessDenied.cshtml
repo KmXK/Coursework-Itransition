@@ -1,3 +1,6 @@
-﻿<h1 class="text-center text-danger mt-3">ACCESS-DENIED</h1>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 
-<h3 class="text-center">Sign out and login with permissions: <a asp-controller="Authorization" asp-action="SignOut">Sign Out</a></h3>
+<h1 class="text-center text-danger mt-3">@_sharedLocalizer["AccessDenied"]</h1>
+
+<h3 class="text-center">@_sharedLocalizer["LinkToRelogin"] <a asp-controller="Authorization" asp-action="SignOut">@_sharedLocalizer["SignOut"]</a></h3>

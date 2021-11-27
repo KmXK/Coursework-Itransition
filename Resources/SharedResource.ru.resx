@@ -120,4 +120,112 @@
   <data name="Name" xml:space="preserve">
     <value>Имя</value>
   </data>
+  <data name="Text" xml:space="preserve">
+    <value>Текст</value>
+    <comment>Text</comment>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Название</value>
+    <comment>Title</comment>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Рейтинг</value>
+    <comment>Rating</comment>
+  </data>
+  <data name="RatingThisReview" xml:space="preserve">
+    <value>Оцените этот отзыв</value>
+    <comment>RatingThisReview</comment>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Вы действительно хотите удалить</value>
+    <comment>ConfirmDelete</comment>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Удалить</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="NoRating" xml:space="preserve">
+    <value>Нет рейтинга</value>
+    <comment>NoRating</comment>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Имя</value>
+    <comment>Username</comment>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+    <comment>Password</comment>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Подтверждение пароля</value>
+    <comment>ConfirmPassword</comment>
+  </data>
+  <data name="Avatar" xml:space="preserve">
+    <value>Аватар</value>
+    <comment>Avatar</comment>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Регистрация</value>
+    <comment>Register</comment>
+  </data>
+  <data name="SignIn" xml:space="preserve">
+    <value>Логин</value>
+    <comment>SignIn</comment>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Запомнить меня</value>
+    <comment>RememberMe</comment>
+  </data>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Доступ запрещён</value>
+    <comment>AccessDenied</comment>
+  </data>
+  <data name="LinkToRelogin" xml:space="preserve">
+    <value>Выйти и зайти с возможностями</value>
+    <comment>LinkToRelogin</comment>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Выйти</value>
+    <comment>SignOut</comment>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Создать</value>
+    <comment>Create</comment>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Действия</value>
+    <comment>Actions</comment>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Редактировать</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="Accept" xml:space="preserve">
+    <value>Принять</value>
+    <comment>Accept</comment>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Настройки</value>
+    <comment>Settings</comment>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Поиск...</value>
+    <comment>SearchPlaceholder</comment>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Логин</value>
+    <comment>Login</comment>
+  </data>
+  <data name="PersonalAccount" xml:space="preserve">
+    <value>Личный кабинет</value>
+    <comment>PersonalAccount</comment>
+  </data>
+  <data name="AdminPanel" xml:space="preserve">
+    <value>Админ-панель</value>
+    <comment>AdminPanel</comment>
+  </data>
 </root>

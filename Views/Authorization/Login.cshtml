@@ -1,28 +1,31 @@
 ﻿@model Coursework.Models.LoginViewModel
 
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
+
 @{
     ViewBag.Title = "Sign In";
 }
 
-<h1>Sign in</h1>
+<h1>@_sharedLocalizer["SignIn"]</h1>
 
 <form class="mb-3" asp-controller="Authorization" asp-action="Login" method="post" asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="container">
-        <label class="col-2">Username</label>
+        <label class="col-2">@_sharedLocalizer["Username"]</label>
         <input class="col-4" type="text" asp-for="Username" />
         <span asp-validation-for="Username"></span>
     </div>
     <br />
     <div class="container">
-        <label class="col-2">Password</label>
+        <label class="col-2">@_sharedLocalizer["Password"]</label>
         <input class="col-4" type="password" asp-for="Password" />
     </div>
 
     <br />
 
     <div class="container">
-        <label>Remember Me</label>
+        <label>@_sharedLocalizer["RememberMe"]</label>
         <input class="ms-1" type="checkbox" asp-for="RememberMe" />
     </div>
 

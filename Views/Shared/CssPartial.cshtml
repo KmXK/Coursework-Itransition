@@ -1,4 +1,15 @@
-﻿<link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration _configuration
+
+@{
+    string bootstrapPath = "/lib/bootstrap/css/bootstrap.css";
+    if (Context.Request.Cookies.ContainsKey("themeCookie"))
+    {
+        var cookieValue = Context.Request.Cookies["themeCookie"];
+        bootstrapPath = _configuration.GetSection("ThemeFiles")[cookieValue] ?? bootstrapPath;
+    }
+}
+<link rel="stylesheet" href="@bootstrapPath" />
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
 <link rel="stylesheet" href="~/lib/simplemde/dist/simplemde.min.css">
 <link rel="stylesheet" href="~/lib/bootstrap-star-rating/themes/krajee-svg/theme.min.css"/>

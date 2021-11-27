@@ -12,7 +12,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace Coursework.Controllers
@@ -22,11 +24,18 @@ namespace Coursework.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
+        private readonly IOptions<RequestLocalizationOptions> _locOptions;
 
-        public AccountController(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+        public AccountController(UserManager<ApplicationUser> userManager, 
+            ApplicationDbContext context,
+            IConfiguration configuration,
+            IOptions<RequestLocalizationOptions> locOptions)
         {
             _userManager = userManager;
             _context = context;
+            _configuration = configuration;
+            _locOptions = locOptions;
         }
 
         public async Task<IActionResult> Index()
@@ -49,12 +58,24 @@ namespace Coursework.Controllers
         public IActionResult Settings()
         {
             var requestCulture = Request.HttpContext.Features.Get<IRequestCultureFeature>();
+            var cultureItems = _locOptions.Value.SupportedCultures
+                .Select(c => new SelectListItem {Value = c.Name, Text = c.NativeName})
+                .ToList();
+
+            var themeSection = _configuration.GetSection("ThemeFiles");
+            var themes = themeSection.GetChildren()
+                .Select(c => new SelectListItem() {Value = c.Key, Text = c.Key})
+                .ToList();
+
+            if (!Request.Cookies.TryGetValue("themeCookie", out string themeValue))
+                themeValue = _configuration["DefaultTheme"];
 
             var model = new SettingsViewModel()
             {
-                Themes = new List<string>() {"White", "Black"},
+                Themes = themes,
+                TargetTheme = themeValue,
                 TargetCulture = requestCulture.RequestCulture.Culture.Name,
-                TargetTheme = "White"
+                Cultures = cultureItems
             };
 
             return View(model);
@@ -71,6 +92,10 @@ namespace Coursework.Controllers
                     new CookieOptions {Expires = DateTimeOffset.UtcNow.AddYears(1)}
                 );
             }
+
+            var themeSection = _configuration.GetSection("ThemeFiles").GetSection(model.TargetTheme);
+            if(themeSection.Exists())
+                Response.Cookies.Append("themeCookie", model.TargetTheme);
 
             return RedirectToAction("Index", "Home");
         }
