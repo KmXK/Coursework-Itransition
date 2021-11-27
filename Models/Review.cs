@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Coursework.Domain.Entities;
+using NpgsqlTypes;
 
 namespace Coursework.Models
 {
@@ -12,5 +13,7 @@ namespace Coursework.Models
         public int AuthorRating { get; set; }
         public List<Comment> Comments { get; set; }
         public ICollection<ReviewRating> Ratings { get; set; }
+
+        public NpgsqlTsVector SearchVector { get; set; }
     }
 }

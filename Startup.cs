@@ -25,7 +25,7 @@ namespace Coursework
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 {
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                    options.UseNpgsql(Configuration.GetConnectionString("PostgreSql"));
                 })
                 .AddIdentity<ApplicationUser, ApplicationRole>(options =>
                 {

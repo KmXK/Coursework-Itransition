@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Coursework.Models.Review>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+
+<div class="pt-2">
+    @foreach (var r in @Model)
+    {
+        await Html.RenderPartialAsync("PartReviewPartial.cshtml", r);
+    }
+</div>

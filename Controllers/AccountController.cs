@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Coursework.Domain;
 using Coursework.Domain.Entities;
 using Coursework.Models;
+using Coursework.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +39,25 @@ namespace Coursework.Controllers
         public IActionResult Admin()
         {
             return View();
+        }
+
+        public IActionResult Settings()
+        {
+            var model = new SettingsViewModel()
+            {
+                Languages = new List<string>() {"Russian", "English"},
+                Themes = new List<string>() {"White", "Black"},
+                TargetLanguage = "Russian",
+                TargetTheme = "White"
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Settings(SettingsViewModel model)
+        {
+            return RedirectToAction("Index", "Home");
         }
     }
 }
