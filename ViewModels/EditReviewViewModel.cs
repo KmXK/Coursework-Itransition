@@ -1,4 +1,4 @@
-﻿namespace Coursework.Models
+﻿namespace Coursework.ViewModels
 {
     public class EditReviewViewModel: CreateRewiewViewModel
     {

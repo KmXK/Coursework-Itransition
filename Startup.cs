@@ -42,7 +42,12 @@ namespace Coursework
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddFacebook(config =>
+                {
+                    config.AppId = Configuration["Authentication:Facebook:AppId"];
+                    config.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                });
 
             services.ConfigureApplicationCookie(options =>
             {

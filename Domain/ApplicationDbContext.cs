@@ -14,6 +14,7 @@ namespace Coursework.Domain
         { }
 
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<ReviewGroup> ReviewGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

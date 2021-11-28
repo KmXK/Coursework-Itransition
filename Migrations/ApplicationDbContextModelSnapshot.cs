@@ -50,7 +50,7 @@ namespace Coursework.Migrations
                         new
                         {
                             Id = new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168"),
-                            ConcurrencyStamp = "d3d2ccfa-f531-4fd8-9be5-77a4e8c24906",
+                            ConcurrencyStamp = "bf1c547e-2a62-43d7-9353-05dabba0786d",
                             Name = "Admin"
                         });
                 });
@@ -107,7 +107,7 @@ namespace Coursework.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("Username")
                         .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
@@ -128,11 +128,11 @@ namespace Coursework.Migrations
                             Id = new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"),
                             AccessFailedCount = 0,
                             AvatarUrl = "/Files/no_avatar.jpg",
-                            ConcurrencyStamp = "64a927c0-7121-4445-9b77-146ff4b910d4",
+                            ConcurrencyStamp = "15e68e49-3e68-4650-809d-64353608cead",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN0w8f9qn8cV10qGltYw5+oIVp8SyysFl1IQ2aF2nLMCWqXxYItlD4E9Ra373nudyg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH/mFR03M+CJNj5Xq2EKKjlX4dUS2sc47v2j3cGoxGhibk8r8CyR9DEcyH1dI/rQow==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -184,6 +184,9 @@ namespace Coursework.Migrations
                     b.Property<int>("AuthorRating")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("GroupId")
+                        .HasColumnType("integer");
+
                     b.Property<NpgsqlTsVector>("SearchVector")
                         .HasColumnType("tsvector");
 
@@ -197,10 +200,27 @@ namespace Coursework.Migrations
 
                     b.HasIndex("AuthorId");
 
+                    b.HasIndex("GroupId");
+
                     b.HasIndex("SearchVector")
                         .HasAnnotation("Npgsql:IndexMethod", "GIN");
 
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("Coursework.Models.ReviewGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReviewGroups");
                 });
 
             modelBuilder.Entity("Coursework.Models.ReviewRating", b =>
@@ -390,6 +410,10 @@ namespace Coursework.Migrations
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
+
+                    b.HasOne("Coursework.Models.ReviewGroup", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId");
                 });
 
             modelBuilder.Entity("Coursework.Models.ReviewRating", b =>

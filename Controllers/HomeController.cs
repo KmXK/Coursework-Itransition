@@ -20,6 +20,7 @@ namespace Coursework.Controllers
             var reviews = _context.Reviews
                 .Include(r => r.Ratings)
                 .Include(r => r.Author)
+                .Include(r=>r.Group)
                 .ToList();
 
             return View(reviews);

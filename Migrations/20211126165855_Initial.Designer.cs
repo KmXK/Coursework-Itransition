@@ -108,7 +108,7 @@ namespace Coursework.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("Username")
                         .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 

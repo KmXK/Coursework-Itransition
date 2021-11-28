@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using Coursework.Domain.Entities;
+using Coursework.Models;
 
-namespace Coursework.Models
+namespace Coursework.ViewModels
 {
     public class AccountViewModel
     {

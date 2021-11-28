@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Coursework.Models
+namespace Coursework.ViewModels
 {
     public class LoginViewModel
     {

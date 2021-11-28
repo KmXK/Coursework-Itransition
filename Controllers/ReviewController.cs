@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Coursework.Domain;
 using Coursework.Domain.Entities;
 using Coursework.Models;
+using Coursework.ViewModels;
 using Ganss.XSS;
 using Markdig;
 using Microsoft.AspNetCore.Authorization;
@@ -26,20 +27,32 @@ namespace Coursework.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            return View(new CreateRewiewViewModel()
+            {
+                Groups = _context.ReviewGroups.Select(g=>g.Name).ToList()
+            });
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateRewiewViewModel model)
         {
+            model.Groups = _context.ReviewGroups.Select(g => g.Name).ToList();
             if (ModelState.IsValid)
             {
+                var group = await _context.ReviewGroups.FirstOrDefaultAsync(g => g.Name == model.SelectedGroup);
+                if (group == null)
+                {
+                    ModelState.AddModelError("SelectedGroup", "Указанная группа не существует");
+                    return View(model);
+                }
+
                 var rewiew = new Review()
                 {
                     Title = model.Title,
                     Text = model.Text,
                     AuthorRating = model.Rating,
-                    Author = await _userManager.FindByIdAsync(_userManager.GetUserId(User))
+                    Author = await _userManager.FindByIdAsync(_userManager.GetUserId(User)),
+                    Group = group
                 };
 
                 await _context.Reviews.AddAsync(rewiew);

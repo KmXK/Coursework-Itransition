@@ -1,8 +1,9 @@
 ﻿using System.IO;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Coursework.Domain;
 using Coursework.Domain.Entities;
-using Coursework.Models;
+using Coursework.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -124,6 +125,67 @@ namespace Coursework.Controllers
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult LoginExternal(string provider, string returnUrl)
+        {
+            var redirectUrl = "Authorization/LoginExternalCallback";
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        public async Task<IActionResult> LoginExternalCallback()
+        {
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider,
+                info.ProviderKey, false, false);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return RedirectToAction(nameof(RegisterExternal));
+        }
+
+        public IActionResult RegisterExternal()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName(nameof(RegisterExternal))]
+        public async Task<IActionResult> RegisterExternalConfirmed(RegisterExternalViewModel model)
+        {
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var user = new ApplicationUser { UserName = model.Username, AvatarUrl = "/Files/no_avatar.jpg"};
+
+            var result = await _userManager.CreateAsync(user);
+            if (result.Succeeded)
+            {
+                var identityResult = await _userManager.AddLoginAsync(user, info);
+                if (identityResult.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, false);
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError("Username", "This account is already registered.");
+            }
+            else
+                ModelState.AddModelError("Username", "This name is already in use.");
+
+
+            return View(model);
         }
     }
 }

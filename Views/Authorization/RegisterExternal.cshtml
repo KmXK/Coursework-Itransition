@@ -1,0 +1,23 @@
+﻿@model Coursework.ViewModels.RegisterExternalViewModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
+
+@{
+    ViewBag.Title = "Sign in";
+}
+
+<h1>@_sharedLocalizer["SignIn"]</h1>
+
+<form class="mb-3" asp-controller="Authorization" asp-action="RegisterExternal" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    <div class="container">
+        <label class="col-2">@_sharedLocalizer["Username"]</label>
+        <input class="col-4" type="text" asp-for="Username" />
+        <span asp-validation-for="Username"></span>
+    </div>
+
+    <br />
+
+    <input type="submit" class="btn btn-primary" />
+</form>
