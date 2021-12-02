@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model string
+
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
+
+<form asp-controller="Authorization" asp-action="LoginExternal" method="post">
+    <input hidden name="returnUrl" value=@Model/>
+    <button class="btn btn-lg btn-social btn-facebook" type="submit"
+            name="provider" value="Facebook">
+        <span class="fa fa-facebook" style="color: white"></span>@_sharedLocalizer["SignInFacebook"]
+    </button>
+</form>

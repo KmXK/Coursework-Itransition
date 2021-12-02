@@ -9,7 +9,7 @@
 
 <h1>@_sharedLocalizer["SignIn"]</h1>
 
-<form class="mb-3" asp-controller="Authorization" asp-action="Login" method="post" asp-route-returnUrl="@Model.ReturnUrl">
+<form class="mb-3 border-bottom pb-3" asp-controller="Authorization" asp-action="Login" method="post" asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="container">
         <label class="col-2">@_sharedLocalizer["Username"]</label>
@@ -34,12 +34,6 @@
     <input type="submit" class="btn btn-primary" />
 </form>
 
-<br />
-
-<form asp-controller="Authorization" asp-action="LoginExternal" method="post">
-    <input hidden name="returnUrl" value=@Model.ReturnUrl />
-    <button class="btn btn-lg btn-social btn-facebook" type="submit"
-            name="provider" value="Facebook">
-        <span class="fa fa-facebook" style="color: white"></span> Sign in with Facebook
-    </button>
-</form>
+@{
+    await Html.RenderPartialAsync("SocialNetworksPartial", Model.ReturnUrl);
+}

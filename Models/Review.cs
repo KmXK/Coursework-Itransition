@@ -14,6 +14,7 @@ namespace Coursework.Models
         public ReviewGroup Group { get; set; }
         public List<Comment> Comments { get; set; }
         public ICollection<ReviewRating> Ratings { get; set; }
+        public ICollection<UserRating> Likes { get; set; }
 
         public NpgsqlTsVector SearchVector { get; set; }
     }

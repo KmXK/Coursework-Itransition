@@ -144,7 +144,7 @@ namespace Coursework.Controllers
             }
 
             var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider,
-                info.ProviderKey, false, false);
+                info.ProviderKey, true, false);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", "Home");
@@ -176,7 +176,7 @@ namespace Coursework.Controllers
                 var identityResult = await _userManager.AddLoginAsync(user, info);
                 if (identityResult.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, false);
+                    await _signInManager.SignInAsync(user, true);
                     return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("Username", "This account is already registered.");

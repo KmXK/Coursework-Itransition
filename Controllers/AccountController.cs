@@ -53,6 +53,7 @@ namespace Coursework.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult Settings()
         {
             var requestCulture = Request.HttpContext.Features.Get<IRequestCultureFeature>();
@@ -79,6 +80,7 @@ namespace Coursework.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Settings(SettingsViewModel model)
         {

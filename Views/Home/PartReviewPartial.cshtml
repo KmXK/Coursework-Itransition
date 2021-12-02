@@ -17,7 +17,7 @@
             {
                 var rating = Model.Ratings.Average(r => r.Rating);
                 <input id="ratingInput" type="number" class="rating d-inline-flex" data-size="xs"
-                       data-show-clear="false" min="0" max="5"
+                       data-show-clear="false" min="0" max="5" style="width: 0"
                        value="@rating.ToString("#.00", CultureInfo.InvariantCulture)" step="1"
                        data-show-caption="false" data-keyboard-enabled="false" data-mouse-enabled="false"
                        data-display-only="true" data-container-class="d-inline float-end" />

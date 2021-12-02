@@ -228,4 +228,20 @@
     <value>Админ-панель</value>
     <comment>AdminPanel</comment>
   </data>
+  <data name="SignInFacebook" xml:space="preserve">
+    <value>Зайти через Facebook</value>
+    <comment>SignInFacebook</comment>
+  </data>
+  <data name="Like" xml:space="preserve">
+    <value>Понравилось</value>
+    <comment>Like</comment>
+  </data>
+  <data name="Dislike" xml:space="preserve">
+    <value>Не понравилось</value>
+    <comment>Dislike</comment>
+  </data>
+  <data name="LikesCount" xml:space="preserve">
+    <value>Количество лайков</value>
+    <comment>LikesCount</comment>
+  </data>
 </root>

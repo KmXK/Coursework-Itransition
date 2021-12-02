@@ -9,9 +9,19 @@
     <header class="py-3 bg-light text-white">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a class="align-items-center text-black text-decoration-none
+                @*<a class="align-items-center text-black text-decoration-none
                       col-12 col-lg-auto me-lg-auto"
-                   asp-controller="Home" asp-action="Index">Coursework</a>
+                   asp-controller="Home" asp-action="Index">Coursework</a>*@
+                
+                <a class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none"
+                   asp-controller="Home" asp-action="Index">
+                    Coursework
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a asp-controller="Account" asp-action="Settings" 
+                           class="nav-link px-2 link-secondary">@_sharedLocalizer["Settings"]</a></li>
+                </ul>
 
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 flex-last"
                       asp-controller="Home" asp-action="Search">
@@ -21,7 +31,7 @@
                 <div class="text-end">
                     @if (!User.Identity.IsAuthenticated)
                     {
-                    <a asp-controller="Authorization" asp-action="Login" class="btn btn-outline-dark me-2">@_sharedLocalizer["Login"]</a>
+                        <a asp-controller="Authorization" asp-action="Login" class="btn btn-outline-dark me-2">@_sharedLocalizer["Login"]</a>
                         <a asp-controller="Authorization" asp-action="Register" class="btn btn-warning">@_sharedLocalizer["Register"]</a>
                     }
                     else

@@ -6,7 +6,6 @@ namespace Coursework.Models
     {
         public int Id { get; set; }
         public ApplicationUser User { get; set; }
-        public ApplicationUser UserRater { get; set; }
         public int Rating { get; set; }
     }
 }

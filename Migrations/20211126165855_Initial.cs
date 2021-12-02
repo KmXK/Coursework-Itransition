@@ -267,7 +267,7 @@ namespace Coursework.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "Username" },
+                columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[] { new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"), 0, "/Files/no_avatar.jpg", "cb5793a5-6fae-4255-8425-8544570122ad", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEKkPuVCINkOpPGk1q3LP2QQiRrtsRhR8QpDfCxnmMLDOkYmrJHd5aASh6hJYQgBsWA==", null, false, "", false, "admin" });
 
             migrationBuilder.InsertData(

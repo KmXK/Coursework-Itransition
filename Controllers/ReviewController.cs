@@ -108,6 +108,7 @@ namespace Coursework.Controllers
             var review = await _context.Reviews
                 .Include(r=>r.Author)
                 .Include(r=>r.Ratings)
+                .Include(r=>r.Likes)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (review == null)
@@ -118,7 +119,11 @@ namespace Coursework.Controllers
                 var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
                 var rating = review.Ratings.FirstOrDefault(r => r.User == user);
                 ViewBag.Rating = rating?.Rating ?? 0;
+
+                ViewBag.IsLiked = review.Likes.FirstOrDefault(l => l.User == user)?.Rating == 1;
             }
+
+            ViewBag.Likes = review.Likes.Sum(l => l.Rating);
 
             return View(review);
         }
@@ -181,6 +186,32 @@ namespace Coursework.Controllers
                 return Redirect(returnUrl);
             else
                 return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ToggleLike(int reviewId)
+        {
+            var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
+            var review = await _context.Reviews
+                .Include(r => r.Likes)
+                .FirstOrDefaultAsync(r => r.Id == reviewId);
+            var rating = review.Likes.FirstOrDefault(l => l.User == user);
+            if (rating == null)
+            {
+                review.Likes.Add(new UserRating()
+                {
+                    Rating = 1,
+                    User = user
+                });
+            }
+            else
+            {
+                rating.Rating = rating.Rating == 1 ? 0 : 1;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Content(review.Likes.Sum(l => l.Rating).ToString());
         }
     }
 }

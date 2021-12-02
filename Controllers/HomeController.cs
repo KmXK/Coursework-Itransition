@@ -32,6 +32,7 @@ namespace Coursework.Controllers
                 .Where(r=>r.SearchVector.Matches(searchString))
                 .Include(r => r.Author)
                 .Include(r => r.Ratings)
+                .Include(r=>r.Group)
                 .ToList();
 
             return View(reviews);

@@ -9,7 +9,7 @@
 
 <h1>@_sharedLocalizer["Register"]</h1>
 
-<form class="mb-3" asp-controller="Authorization" asp-action="Register" method="post" enctype="multipart/form-data">
+<form class="mb-3 border-bottom pb-3" asp-controller="Authorization" asp-action="Register" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="container">
         <label class="col-2">@_sharedLocalizer["Username"]</label>
@@ -37,3 +37,7 @@
     <br />
     <input type="submit" class="btn btn-primary" />
 </form>
+
+@{
+    await Html.RenderPartialAsync("SocialNetworksPartial", "");
+}
