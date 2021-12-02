@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using Coursework.Domain;
 using Coursework.Domain.Entities;
@@ -40,6 +41,7 @@ namespace Coursework
                     options.Password.RequireUppercase = false;
                     options.Password.RequiredLength = 1;
                     options.Password.RequiredUniqueChars = 1;
+                    options.User.AllowedUserNameCharacters = String.Empty;
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
