@@ -34,6 +34,11 @@
         "package.json",
         "README.md"
       ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "datatables@1.10.18",
+      "destination": "wwwroot/lib/datatables/"
     }
   ]
 }
