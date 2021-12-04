@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 
 namespace Coursework.Controllers
@@ -25,16 +26,19 @@ namespace Coursework.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
         private readonly IOptions<RequestLocalizationOptions> _locOptions;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
         public AccountController(UserManager<ApplicationUser> userManager, 
             ApplicationDbContext context,
             IConfiguration configuration,
-            IOptions<RequestLocalizationOptions> locOptions)
+            IOptions<RequestLocalizationOptions> locOptions,
+            IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _userManager = userManager;
             _context = context;
             _configuration = configuration;
             _locOptions = locOptions;
+            _sharedLocalizer = sharedLocalizer;
         }
 
         [AllowAnonymous]
@@ -95,7 +99,11 @@ namespace Coursework.Controllers
 
             var themeSection = _configuration.GetSection("ThemeFiles");
             var themes = themeSection.GetChildren()
-                .Select(c => new SelectListItem() {Value = c.Key, Text = c.Key})
+                .Select(c => new SelectListItem() 
+                    {
+                        Value = c.Key, 
+                        Text = _sharedLocalizer[c.Key].Value
+                    })
                 .ToList();
 
             if (!Request.Cookies.TryGetValue("themeCookie", out string themeValue))

@@ -248,4 +248,10 @@
     <value>Просмотреть</value>
     <comment>View</comment>
   </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
 </root>

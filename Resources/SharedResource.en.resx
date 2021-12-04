@@ -245,7 +245,13 @@
     <comment>LikesCount</comment>
   </data>
   <data name="View" xml:space="preserve">
-	  <value>View</value>
-	  <comment>View</comment>
+    <value>View</value>
+    <comment>View</comment>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="LightTheme" xml:space="preserve">
+    <value>Light</value>
   </data>
 </root>
