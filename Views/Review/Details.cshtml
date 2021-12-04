@@ -36,6 +36,7 @@
            data-keyboard-enabled="false" data-container-class="d-inline" />
     <br />
 }
+
 <div class="mt-2">
     @if (User.Identity.IsAuthenticated)
     {
@@ -49,11 +50,16 @@
             <button id="likeBtn" class="btn btn-danger ms-1">@_sharedLocalizer["Dislike"]</button>
         }
     }
-    <label id="likes" class="form-label ms-1">Likes count:  @ViewBag.Likes</label>
+    <label id="likes" class="form-label ms-1">@_sharedLocalizer["LikesCount"]:  @ViewBag.Likes</label>
 </div>
 
-<div class="container">
-
+<div class="row">
+    <div class="col">
+        @foreach (var comment in @Model.Comments)
+        {
+            await Html.RenderPartialAsync("CommentPartial", comment);
+        }
+    </div>
 </div>
    
 

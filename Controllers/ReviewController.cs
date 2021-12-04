@@ -108,6 +108,8 @@ namespace Coursework.Controllers
                 .Include(r=>r.Author)
                 .Include(r=>r.Ratings)
                 .Include(r=>r.Likes)
+                .Include(r=>r.Comments)
+                .ThenInclude(c=>c.Author)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
             if (review == null)
