@@ -1,1 +1,29 @@
-﻿<h1>ADMIN PANEL</h1>
+﻿@model IEnumerable<Coursework.ViewModels.UserViewModel>
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Likes</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <th>@user.Username</th>
+            <th>@user.Likes</th>
+            <th>
+                <div class="btn-group">
+                    <a asp-controller="Account" asp-action="Profile" asp-route-id="@user.Id"
+                       class="btn btn-primary">
+                        View
+                    </a>
+                </div>
+            </th>
+        </tr>
+    }
+    </tbody>
+</table>

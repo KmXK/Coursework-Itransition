@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -71,7 +72,17 @@ namespace Coursework.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Admin()
         {
-            return View();
+            var users = _context.Users
+                .OrderBy(u => u.Id)
+                .Include(u => u.Ratings)
+                .Select(u => new UserViewModel()
+                {
+                    Username = u.UserName,
+                    Likes = u.Ratings.Sum(r => r.Rating),
+                    Id = u.Id
+                });
+
+            return View(users);
         }
 
         [AllowAnonymous]
