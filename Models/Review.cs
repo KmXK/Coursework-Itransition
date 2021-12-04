@@ -12,7 +12,7 @@ namespace Coursework.Models
         public string Text { get; set; }
         public int AuthorRating { get; set; }
         public ReviewGroup Group { get; set; }
-        public List<Comment> Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public ICollection<ReviewRating> Ratings { get; set; }
         public ICollection<UserRating> Likes { get; set; }
 
