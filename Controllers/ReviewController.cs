@@ -176,9 +176,16 @@ namespace Coursework.Controllers
         [HttpPost, ActionName(nameof(Delete))]
         public async Task<IActionResult> DeleteConfirmed(int id, string returnUrl = null)
         {
-            var review = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == id);
+            var review = await _context.Reviews
+                .Include(r=>r.Comments)
+                .Include(r=>r.Ratings)
+                .Include(r=>r.Likes)
+                .FirstOrDefaultAsync(r => r.Id == id);
             if(review != null)
             {
+                review.Comments.Clear();
+                review.Ratings.Clear();
+                review.Likes.Clear();
                 _context.Reviews.Remove(review);
                 await _context.SaveChangesAsync();
             }
