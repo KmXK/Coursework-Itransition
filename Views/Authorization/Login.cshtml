@@ -10,21 +10,21 @@
 <form class="mb-3 border-bottom pb-3" asp-controller="Authorization" asp-action="Login" method="post" asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="container">
-        <label class="col-2">@_sharedLocalizer["Username"]</label>
-        <input class="col-4 form-text" type="text" asp-for="Username" />
+        <label class="col-2 form-label">@_sharedLocalizer["Username"]</label>
+        <input class="col-4 form-control" type="text" asp-for="Username" />
         <span asp-validation-for="Username"></span>
     </div>
     <br />
     <div class="container">
-        <label class="col-2">@_sharedLocalizer["Password"]</label>
+        <label class="col-2 form-label">@_sharedLocalizer["Password"]</label>
         <input class="col-4 form-control" type="password" asp-for="Password" />
     </div>
 
     <br />
 
     <div class="container">
-        <label>@_sharedLocalizer["RememberMe"]</label>
-        <input class="ms-1 form-check" type="checkbox" asp-for="RememberMe" />
+        <label class="form-check-label">@_sharedLocalizer["RememberMe"]</label>
+        <input class="ms-1 form-check-inline" type="checkbox" asp-for="RememberMe" />
     </div>
 
     <br />
