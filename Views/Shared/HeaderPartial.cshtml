@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Coursework.Domain.Entities
 @using Microsoft.AspNetCore.Hosting
-@using Microsoft.AspNetCore.Mvc.Localization
 @inject UserManager<ApplicationUser> _userManager
 @inject IWebHostEnvironment _webHostEnvironment
 @inject IHtmlLocalizer<SharedResource> _sharedLocalizer
@@ -43,7 +42,7 @@
                                 <img src="@user.AvatarUrl" alt="mdo" width="32" height="32" class="rounded-circle">
                             </a>
                             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
-                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Index">@_sharedLocalizer["PersonalAccount"]</a></li>
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">@_sharedLocalizer["PersonalAccount"]</a></li>
                                 <li><a class="dropdown-item" asp-controller="Account" asp-action="Settings">@_sharedLocalizer["Settings"]</a></li>
                                 @if (User.IsInRole("Admin"))
                                 {

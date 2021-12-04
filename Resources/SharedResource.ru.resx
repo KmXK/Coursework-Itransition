@@ -244,4 +244,8 @@
     <value>Количество лайков</value>
     <comment>LikesCount</comment>
   </data>
+  <data name="View" xml:space="preserve">
+    <value>Просмотреть</value>
+    <comment>View</comment>
+  </data>
 </root>

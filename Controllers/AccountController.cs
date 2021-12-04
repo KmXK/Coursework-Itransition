@@ -36,13 +36,34 @@ namespace Coursework.Controllers
             _locOptions = locOptions;
         }
 
-        public async Task<IActionResult> Index()
+        [AllowAnonymous]
+        public async Task<IActionResult> Profile(int? id)
         {
-            var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
-            
+            if (id == null && !User.Identity.IsAuthenticated)
+                return NotFound();
+
+            ApplicationUser currentUser = null;
+            if (User.Identity.IsAuthenticated)
+                currentUser = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
+
+            ApplicationUser user = null;
+            if (id != null)
+            {
+                user = await _userManager.FindByIdAsync(id.Value.ToString());
+                if (user == null)
+                    return NotFound();
+            }
+            else
+            {
+                if (currentUser == null)
+                    return NotFound();
+                user = currentUser;
+            }
+
             return View(new AccountViewModel()
             {
                 User = user,
+                CurrentUser = currentUser,
                 Reviews = _context.Reviews.Include(r=>r.Author).Where(r=>r.Author==user).ToList()
             });
         }

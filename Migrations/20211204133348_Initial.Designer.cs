@@ -11,8 +11,8 @@ using NpgsqlTypes;
 namespace Coursework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211126172801_FTSReview")]
-    partial class FTSReview
+    [Migration("20211204133348_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,9 +24,10 @@ namespace Coursework.Migrations
 
             modelBuilder.Entity("Coursework.Domain.Entities.ApplicationRole", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -51,17 +52,18 @@ namespace Coursework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168"),
-                            ConcurrencyStamp = "d3d2ccfa-f531-4fd8-9be5-77a4e8c24906",
+                            Id = 1,
+                            ConcurrencyStamp = "6b51b8ea-9392-43b5-a25e-4ce3287f7707",
                             Name = "Admin"
                         });
                 });
 
             modelBuilder.Entity("Coursework.Domain.Entities.ApplicationUser", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
@@ -109,7 +111,7 @@ namespace Coursework.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("Username")
+                    b.Property<string>("UserName")
                         .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
@@ -127,14 +129,14 @@ namespace Coursework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"),
+                            Id = 1,
                             AccessFailedCount = 0,
                             AvatarUrl = "/Files/no_avatar.jpg",
-                            ConcurrencyStamp = "64a927c0-7121-4445-9b77-146ff4b910d4",
+                            ConcurrencyStamp = "2a978fa4-ad0a-4050-8ce3-7aed62da4fa9",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEN0w8f9qn8cV10qGltYw5+oIVp8SyysFl1IQ2aF2nLMCWqXxYItlD4E9Ra373nudyg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKBjqM5EVpBXakgu/RCI35YVVPHfJ0t61Zl+G1p+yJgw5DQVfA36I99IL7LHrBBBdw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -149,8 +151,8 @@ namespace Coursework.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<Guid?>("AuthorId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Dislikes")
                         .HasColumnType("integer");
@@ -180,10 +182,13 @@ namespace Coursework.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<Guid?>("AuthorId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("AuthorId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("AuthorRating")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("GroupId")
                         .HasColumnType("integer");
 
                     b.Property<NpgsqlTsVector>("SearchVector")
@@ -199,10 +204,27 @@ namespace Coursework.Migrations
 
                     b.HasIndex("AuthorId");
 
+                    b.HasIndex("GroupId");
+
                     b.HasIndex("SearchVector")
                         .HasAnnotation("Npgsql:IndexMethod", "GIN");
 
                     b.ToTable("Reviews");
+                });
+
+            modelBuilder.Entity("Coursework.Models.ReviewGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ReviewGroups");
                 });
 
             modelBuilder.Entity("Coursework.Models.ReviewRating", b =>
@@ -218,8 +240,8 @@ namespace Coursework.Migrations
                     b.Property<int>("ReviewId")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -240,22 +262,22 @@ namespace Coursework.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("integer");
 
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("ReviewId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid?>("UserRaterId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("ReviewId");
 
-                    b.HasIndex("UserRaterId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserRating");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -268,8 +290,8 @@ namespace Coursework.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -278,7 +300,7 @@ namespace Coursework.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -291,8 +313,8 @@ namespace Coursework.Migrations
                     b.Property<string>("ClaimValue")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -301,7 +323,7 @@ namespace Coursework.Migrations
                     b.ToTable("AspNetUserClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnType("text");
@@ -312,8 +334,8 @@ namespace Coursework.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -322,13 +344,13 @@ namespace Coursework.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("RoleId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -340,13 +362,13 @@ namespace Coursework.Migrations
 
                     b.ToTable("AspNetUserRoles");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<Guid>");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<int>");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnType("text");
@@ -364,15 +386,15 @@ namespace Coursework.Migrations
 
             modelBuilder.Entity("Coursework.Domain.Entities.ApplicationUserRole", b =>
                 {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<int>");
 
                     b.HasDiscriminator().HasValue("ApplicationUserRole");
 
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("252352f7-e127-4c9d-ad06-dd6b859043d8"),
-                            RoleId = new Guid("7a08f647-1c30-4453-b46b-a9ad1a79c168")
+                            UserId = 1,
+                            RoleId = 1
                         });
                 });
 
@@ -392,6 +414,10 @@ namespace Coursework.Migrations
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
+
+                    b.HasOne("Coursework.Models.ReviewGroup", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId");
                 });
 
             modelBuilder.Entity("Coursework.Models.ReviewRating", b =>
@@ -409,16 +435,16 @@ namespace Coursework.Migrations
 
             modelBuilder.Entity("Coursework.Models.UserRating", b =>
                 {
+                    b.HasOne("Coursework.Models.Review", null)
+                        .WithMany("Likes")
+                        .HasForeignKey("ReviewId");
+
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", "User")
                         .WithMany("Ratings")
                         .HasForeignKey("UserId");
-
-                    b.HasOne("Coursework.Domain.Entities.ApplicationUser", "UserRater")
-                        .WithMany()
-                        .HasForeignKey("UserRaterId");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Coursework.Domain.Entities.ApplicationRole", null)
                         .WithMany()
@@ -427,7 +453,7 @@ namespace Coursework.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", null)
                         .WithMany()
@@ -436,7 +462,7 @@ namespace Coursework.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", null)
                         .WithMany()
@@ -445,7 +471,7 @@ namespace Coursework.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
                 {
                     b.HasOne("Coursework.Domain.Entities.ApplicationRole", null)
                         .WithMany()
@@ -460,7 +486,7 @@ namespace Coursework.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", null)
                         .WithMany()

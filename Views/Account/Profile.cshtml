@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
-@model Coursework.ViewModels.AccountViewModel
+﻿@model Coursework.ViewModels.AccountViewModel
 @inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 
 @{
@@ -13,8 +12,8 @@
 
 
 <div class="text-end mb-2">
-    <a asp-controller="Review" asp-action="Create">
-        <button class="btn btn-warning" type="button">@_sharedLocalizer["Create"]</button>
+    <a asp-controller="Review" asp-action="Create" class="btn btn-warning" type="button">
+        @_sharedLocalizer["Create"]
     </a>
 </div>
 
@@ -30,7 +29,6 @@
         @foreach (var r in @Model.Reviews)
         {
         <tr>
-            
             <td>
                 <a asp-controller="Review" asp-action="Details" asp-route-id="@r.Id">
                     @r.Title
@@ -40,14 +38,22 @@
             <td>@r.AuthorRating</td>
             <td>
                 <div class="btn-group">
-                    <a asp-controller="Review" asp-action="Edit"
-                       asp-route-id="@r.Id" class="btn btn-primary" type="button">
-                        @_sharedLocalizer["Edit"]
-                    </a>
 
-                    <a asp-controller="Review" asp-action="Delete" asp-route-returnUrl="@Context.Request.GetDisplayUrl()"
-                       asp-route-id="@r.Id" class="btn btn-danger btn-group" type="button">
-                        @_sharedLocalizer["Delete"]
+                    @if(Model.CurrentUser == Model.User || User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Review" asp-action="Edit"
+                           asp-route-id="@r.Id" class="btn btn-primary" type="button">
+                            @_sharedLocalizer["Edit"]
+                        </a>
+
+                        <a asp-controller="Review" asp-action="Delete" asp-route-returnUrl="@Context.Request.GetDisplayUrl()"
+                           asp-route-id="@r.Id" class="btn btn-danger btn-group" type="button">
+                            @_sharedLocalizer["Delete"]
+                        </a>
+                    }
+                    <a asp-controller="Review" asp-action="Details"
+                       asp-route-id="@r.Id" class="btn btn-warning btn-group" type="button">
+                        @_sharedLocalizer["View"]
                     </a>
                 </div>
             </td>

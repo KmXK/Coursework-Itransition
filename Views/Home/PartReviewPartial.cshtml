@@ -1,14 +1,17 @@
 ﻿@using System.Globalization
 @model Coursework.Models.Review
-
-@using Microsoft.AspNetCore.Mvc.Localization
 @inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 @inject IHtmlLocalizer<GroupResource> _groupLocalizer
 
 <div class="card">
     <div class="card-body">
-        <img src="@Model.Author.AvatarUrl" alt="Avatar" class="rounded-circle" width="40" height="40">
-        <h4 class="d-inline text-center align-middle">@Model.Author.UserName</h4>
+        <a asp-controller="Account" asp-action="Profile"
+           asp-route-id="@Model.Author.Id" class="text-decoration-none text-black">
+            <img src="@Model.Author.AvatarUrl" alt="Avatar" class="rounded-circle" width="40" height="40">
+            <h4 class="d-inline text-center align-middle">
+                @Model.Author.UserName
+            </h4>
+        </a>
         <span class="badge bg-secondary align-middle">@_groupLocalizer[Model.Group.Name]</span>
 
         @{
@@ -21,7 +24,6 @@
                        value="@rating.ToString("#.00", CultureInfo.InvariantCulture)" step="1"
                        data-show-caption="false" data-keyboard-enabled="false" data-mouse-enabled="false"
                        data-display-only="true" data-container-class="d-inline float-end" />
-
             }
             else
             {
@@ -29,9 +31,9 @@
             }
         }
         <br />
-        <a class="mb-0 mt-1" asp-controller="Review"
+        <a class="text-decoration-none text-dark" asp-controller="Review"
            asp-action="Details" asp-route-id="@Model.Id">
-            <h3>@Model.Title</h3>
+            <h3 class="mb-0 mt-3">@Model.Title</h3>
         </a>
     </div>
 </div>

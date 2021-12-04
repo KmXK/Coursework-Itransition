@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using Coursework.Domain;
-using Coursework.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

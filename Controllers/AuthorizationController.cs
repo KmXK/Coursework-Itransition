@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Coursework.Domain;
 using Coursework.Domain.Entities;

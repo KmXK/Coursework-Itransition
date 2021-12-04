@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Coursework.Domain.Entities
 {
-    public class ApplicationUser : IdentityUser<Guid>
+    public class ApplicationUser : IdentityUser<int>
     {
         public string AvatarUrl { get; set; }
         [InverseProperty("User")]

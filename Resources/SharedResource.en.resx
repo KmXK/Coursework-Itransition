@@ -221,7 +221,7 @@
     <comment>Login</comment>
   </data>
   <data name="PersonalAccount" xml:space="preserve">
-    <value>Personal account</value>
+    <value>My profile</value>
     <comment>PersonalAccount</comment>
   </data>
   <data name="AdminPanel" xml:space="preserve">
@@ -243,5 +243,9 @@
   <data name="LikesCount" xml:space="preserve">
     <value>Likes count</value>
     <comment>LikesCount</comment>
+  </data>
+  <data name="View" xml:space="preserve">
+	  <value>View</value>
+	  <comment>View</comment>
   </data>
 </root>

@@ -7,6 +7,7 @@ namespace Coursework.ViewModels
     public class AccountViewModel
     {
         public ApplicationUser User { get; set; }
+        public ApplicationUser CurrentUser { get; set; }
         public List<Review> Reviews { get; set; }
     }
 }

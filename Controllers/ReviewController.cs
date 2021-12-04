@@ -4,8 +4,6 @@ using Coursework.Domain;
 using Coursework.Domain.Entities;
 using Coursework.Models;
 using Coursework.ViewModels;
-using Ganss.XSS;
-using Markdig;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -70,15 +68,15 @@ namespace Coursework.Controllers
             var review = await _context.Reviews.Include(r => r.Author)
                 .FirstOrDefaultAsync(r => r.Id == id);
 
-            if (review.Author != user)
-                return Unauthorized();
-
+            if (review.Author != user && !User.IsInRole("Admin"))
+                return NotFound();
             return View(new EditReviewViewModel()
             {
                 Id = review.Id,
                 Text = review.Text,
                 Title = review.Title,
-                Rating = review.AuthorRating
+                Rating = review.AuthorRating,
+                Groups = _context.ReviewGroups.Select(g=>g.Name).ToList()
             });
         }
 
@@ -91,6 +89,7 @@ namespace Coursework.Controllers
                 review.AuthorRating = model.Rating;
                 review.Title = model.Title;
                 review.Text = model.Text;
+                review.Group = await _context.ReviewGroups.FirstOrDefaultAsync(g => g.Name == model.SelectedGroup);
 
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");

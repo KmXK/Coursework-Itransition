@@ -1,6 +1,4 @@
 ﻿@model Coursework.ViewModels.EditReviewViewModel
-
-@using Microsoft.AspNetCore.Mvc.Localization
 @inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 
 @{
@@ -24,6 +22,14 @@
         <label class="col-2">@_sharedLocalizer["Rating"]</label>
         <input class="col-4" type="number" min="0" max="10" asp-for="Rating" />
     </div>
+    <br />
+    <select class="form-select" asp-for="SelectedGroup">
+        @foreach (var groupName in Model.Groups)
+        {
+            <option value="@groupName">@groupName</option>
+        }
+    </select>
+    <br />
 
     <input type="submit" class="btn btn-primary" />
 </form>
