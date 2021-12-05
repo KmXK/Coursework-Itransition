@@ -5,37 +5,39 @@
 
 <div class="card">
     <div class="card-body">
-        <a asp-controller="Account" asp-action="Profile"
-           asp-route-id="@Model.Author.Id" class="text-decoration-none text-black">
-            <img src="@Model.Author.AvatarUrl" alt="Avatar" class="rounded-circle" width="40" height="40">
-            <h4 class="d-inline text-center align-middle">
-                @Model.Author.UserName
-            </h4>
-        </a>
-        <span class="badge bg-secondary align-middle">@_groupLocalizer[Model.Group.Name]</span>
-        
-        @{
-            var hasRating = Model.Ratings != null && Model.Ratings.Any();
-            if (hasRating)
-            {
-                var rating = Model.Ratings.Average(r => r.Rating);
-                <input id="ratingInput" type="number" class="rating d-inline-flex" data-size="xs"
-                       data-show-clear="false" min="0" max="5" style="width: 0"
-                       value="@rating.ToString("#.00", CultureInfo.InvariantCulture)" step="1"
-                       data-show-caption="false" data-keyboard-enabled="false" data-mouse-enabled="false"
-                       data-display-only="true" data-container-class="d-inline float-end" />
+        <div>
+            <a asp-controller="Account" asp-action="Profile"
+               asp-route-id="@Model.Author.Id" class="text-decoration-none text-black">
+                <img src="@Model.Author.AvatarUrl" alt="Avatar" class="rounded-circle" width="40" height="40">
+                <h4 class="d-inline text-center align-middle">
+                    @Model.Author.UserName
+                </h4>
+            </a>
+            <span class="badge bg-secondary align-middle">@_groupLocalizer[Model.Group.Name]</span>
+
+            @{
+                var hasRating = Model.Ratings != null && Model.Ratings.Any();
+                if (hasRating)
+                {
+                    var rating = Model.Ratings.Average(r => r.Rating);
+                    <input id="ratingInput" type="number" class="rating d-inline-flex" data-size="xs"
+                           data-show-clear="false" min="0" max="5" style="width: 0"
+                           value="@rating.ToString("#.00", CultureInfo.InvariantCulture)" step="1"
+                           data-show-caption="false" data-keyboard-enabled="false" data-mouse-enabled="false"
+                           data-display-only="true" data-container-class="d-inline float-end" />
+                }
+                else
+                {
+                    <label class="d-inline float-end">@_sharedLocalizer["NoRating"]</label>
+                }
             }
-            else
-            {
-                <label class="d-inline float-end">@_sharedLocalizer["NoRating"]</label>
-            }
-        }
-        
+        </div>
+
         <a class="text-dark text-decoration-none mt-3 pb-3" asp-controller="Review"
-             asp-action="Details" asp-route-id="@Model.Id">
+           asp-action="Details" asp-route-id="@Model.Id">
             <h3>@Model.Title</h3>
         </a>
-        
+
         <div>
             @_sharedLocalizer["AuthorRating"]: @Model.AuthorRating
         </div>

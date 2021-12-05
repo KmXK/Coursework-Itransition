@@ -268,4 +268,12 @@
   <data name="AuthorRating" xml:space="preserve">
     <value>Оценка автора</value>
   </data>
+  <data name="PopularReviews" xml:space="preserve">
+	  <value>Популярные отзывы</value>
+	  <comment>PopularReviews</comment>
+  </data>
+  <data name="LastReviews" xml:space="preserve">
+	  <value>Последние отзывы</value>
+	  <comment>LastReviews</comment>
+  </data>
 </root>

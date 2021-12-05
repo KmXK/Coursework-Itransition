@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Coursework.Domain;
+using Coursework.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,13 +17,21 @@ namespace Coursework.Controllers
 
         public IActionResult Index()
         {
-            var reviews = _context.Reviews
+            var lastReviews = _context.Reviews
                 .Include(r => r.Ratings)
                 .Include(r => r.Author)
                 .Include(r=>r.Group)
                 .ToList();
 
-            return View(reviews);
+            var popularReviews = lastReviews
+                .OrderByDescending(r => r.Ratings.Sum(rating => rating.Rating))
+                .Take(5);
+
+            return View(new MainPageViewModel()
+            {
+                LastReview = lastReviews,
+                PopularReviews = popularReviews
+            });
         }
 
         public IActionResult Search(string searchString)

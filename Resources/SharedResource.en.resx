@@ -149,7 +149,7 @@
     <comment>Cancel</comment>
   </data>
   <data name="NoRating" xml:space="preserve">
-    <value>NoRating</value>
+    <value>No rating</value>
     <comment>NoRating</comment>
   </data>
   <data name="Username" xml:space="preserve">
@@ -268,5 +268,13 @@
   </data>
   <data name="AuthorRating" xml:space="preserve">
     <value>Author rating</value>
+  </data>
+  <data name="PopularReviews" xml:space="preserve">
+	  <value>Popular Reviews</value>
+	  <comment>PopularReviews</comment>
+  </data>
+  <data name="LastReviews" xml:space="preserve">
+	  <value>Last Reviews</value>
+	  <comment>LastReviews</comment>
   </data>
 </root>

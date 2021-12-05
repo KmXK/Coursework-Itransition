@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Coursework.Models.Review>
+﻿@model Coursework.ViewModels.MainPageViewModel
 
 @inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 
@@ -6,16 +6,23 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div>
-    <div class="d-grid gap-3" style="grid-template-columns: 2fr 1fr;">
+<div class="row">
+    <div class="col-12 col-lg-8">
+        <h3>@_sharedLocalizer["LastReviews"]</h3>
         <div class="pt-2">
-            @foreach (var r in Model)
+            @foreach (var r in Model.LastReview)
             {
                 await Html.RenderPartialAsync("PartReviewPartial.cshtml", r);
             }
         </div>
+    </div>
+    <div class="col-12 col-lg-4">
+        <h3>@_sharedLocalizer["PopularReviews"]</h3>
         <div class="pt-2">
-            <text class="text-black">Hello world!</text>
+            @foreach (var r in Model.PopularReviews)
+            {
+                await Html.RenderPartialAsync("PartReviewPartial.cshtml", r);
+            }
         </div>
     </div>
 </div>
