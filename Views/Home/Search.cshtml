@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Coursework.Models.Review>
+@inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 
 @{
     ViewData["Title"] = "Search";
@@ -6,8 +7,15 @@
 
 
 <div class="pt-2">
-    @foreach (var r in @Model)
+    @if(Model.Any())
     {
-        await Html.RenderPartialAsync("PartReviewPartial.cshtml", r);
+        foreach (var r in @Model)
+        {
+            await Html.RenderPartialAsync("PartReviewPartial.cshtml", r);
+        }
+    }
+    else
+    {
+        <h2>@_sharedLocalizer["SearchNoResult"]</h2>
     }
 </div>

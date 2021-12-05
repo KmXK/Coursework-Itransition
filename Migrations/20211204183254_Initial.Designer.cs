@@ -11,16 +11,16 @@ using NpgsqlTypes;
 namespace Coursework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211204154400_EditedComments")]
-    partial class EditedComments
+    [Migration("20211204183254_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.21")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63)
+                .HasAnnotation("ProductVersion", "5.0.12")
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Coursework.Domain.Entities.ApplicationRole", b =>
                 {
@@ -34,18 +34,18 @@ namespace Coursework.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
 
@@ -53,7 +53,7 @@ namespace Coursework.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "4ed68c3a-1482-4e93-a84f-c9262fb24f10",
+                            ConcurrencyStamp = "e9f5bbd7-db69-4226-816a-0daa0c485873",
                             Name = "Admin"
                         });
                 });
@@ -76,8 +76,8 @@ namespace Coursework.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
@@ -89,12 +89,12 @@ namespace Coursework.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("text");
@@ -112,17 +112,17 @@ namespace Coursework.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("character varying(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
 
@@ -132,11 +132,11 @@ namespace Coursework.Migrations
                             Id = 1,
                             AccessFailedCount = 0,
                             AvatarUrl = "/Files/no_avatar.jpg",
-                            ConcurrencyStamp = "c8e59697-5954-428f-9aa9-b9d99c063016",
+                            ConcurrencyStamp = "e6e0df4a-90fe-4771-bbf4-8fca4251ecc1",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENb3/AZfJmFEJdf61wUjeGaYRar9UdZMTSGFsA1wm2VYihCH63TiBPKr2i67vVtgIQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIziADaVlpd8xY7BO2XGmTGX80C2I1RLEDBt6bHKJQiBvfQB02BOS5ZG/+RxjIHGTw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -151,13 +151,13 @@ namespace Coursework.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("AuthorId")
+                    b.Property<int>("AuthorId")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("PostTime")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("ReviewId")
+                    b.Property<int>("ReviewId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Text")
@@ -189,7 +189,10 @@ namespace Coursework.Migrations
                         .HasColumnType("integer");
 
                     b.Property<NpgsqlTsVector>("SearchVector")
-                        .HasColumnType("tsvector");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("tsvector")
+                        .HasAnnotation("Npgsql:TsVectorConfig", "russian")
+                        .HasAnnotation("Npgsql:TsVectorProperties", new[] { "Text", "Title" });
 
                     b.Property<string>("Text")
                         .HasColumnType("text");
@@ -204,7 +207,7 @@ namespace Coursework.Migrations
                     b.HasIndex("GroupId");
 
                     b.HasIndex("SearchVector")
-                        .HasAnnotation("Npgsql:IndexMethod", "GIN");
+                        .HasMethod("GIN");
 
                     b.ToTable("Reviews");
                 });
@@ -421,11 +424,17 @@ namespace Coursework.Migrations
                 {
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId");
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Coursework.Models.Review", null)
                         .WithMany("Comments")
-                        .HasForeignKey("ReviewId");
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("Coursework.Models.Review", b =>
@@ -437,6 +446,10 @@ namespace Coursework.Migrations
                     b.HasOne("Coursework.Models.ReviewGroup", "Group")
                         .WithMany()
                         .HasForeignKey("GroupId");
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("Coursework.Models.ReviewRating", b =>
@@ -450,6 +463,8 @@ namespace Coursework.Migrations
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Coursework.Models.UserRating", b =>
@@ -461,6 +476,8 @@ namespace Coursework.Migrations
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", "User")
                         .WithMany("Ratings")
                         .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -512,6 +529,20 @@ namespace Coursework.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Coursework.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("Ratings");
+                });
+
+            modelBuilder.Entity("Coursework.Models.Review", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Likes");
+
+                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }

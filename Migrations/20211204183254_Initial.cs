@@ -13,11 +13,11 @@ namespace Coursework.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,23 +28,23 @@ namespace Coursework.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    AvatarUrl = table.Column<string>(nullable: true)
+                    AvatarUrl = table.Column<string>(type: "text", nullable: true),
+                    UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "text", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,9 +55,9 @@ namespace Coursework.Migrations
                 name: "ReviewGroups",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -68,11 +68,11 @@ namespace Coursework.Migrations
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RoleId = table.Column<int>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    RoleId = table.Column<int>(type: "integer", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,11 +89,11 @@ namespace Coursework.Migrations
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    ClaimType = table.Column<string>(type: "text", nullable: true),
+                    ClaimValue = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,10 +110,10 @@ namespace Coursework.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
-                    ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    ProviderKey = table.Column<string>(type: "text", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "text", nullable: true),
+                    UserId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,9 +130,9 @@ namespace Coursework.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false)
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    RoleId = table.Column<int>(type: "integer", nullable: false),
+                    Discriminator = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -155,10 +155,10 @@ namespace Coursework.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Value = table.Column<string>(nullable: true)
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    LoginProvider = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -175,14 +175,16 @@ namespace Coursework.Migrations
                 name: "Reviews",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    AuthorId = table.Column<int>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Text = table.Column<string>(nullable: true),
-                    AuthorRating = table.Column<int>(nullable: false),
-                    GroupId = table.Column<int>(nullable: true),
-                    SearchVector = table.Column<NpgsqlTsVector>(nullable: true)
+                    AuthorId = table.Column<int>(type: "integer", nullable: true),
+                    Title = table.Column<string>(type: "text", nullable: true),
+                    Text = table.Column<string>(type: "text", nullable: true),
+                    AuthorRating = table.Column<int>(type: "integer", nullable: false),
+                    GroupId = table.Column<int>(type: "integer", nullable: true),
+                    SearchVector = table.Column<NpgsqlTsVector>(type: "tsvector", nullable: true)
+                        .Annotation("Npgsql:TsVectorConfig", "russian")
+                        .Annotation("Npgsql:TsVectorProperties", new[] { "Text", "Title" })
                 },
                 constraints: table =>
                 {
@@ -205,13 +207,12 @@ namespace Coursework.Migrations
                 name: "Comment",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    AuthorId = table.Column<int>(nullable: true),
-                    Text = table.Column<string>(nullable: true),
-                    Likes = table.Column<int>(nullable: false),
-                    Dislikes = table.Column<int>(nullable: false),
-                    ReviewId = table.Column<int>(nullable: true)
+                    AuthorId = table.Column<int>(type: "integer", nullable: false),
+                    PostTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Text = table.Column<string>(type: "text", nullable: true),
+                    ReviewId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -221,65 +222,65 @@ namespace Coursework.Migrations
                         column: x => x.AuthorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comment_Reviews_ReviewId",
                         column: x => x.ReviewId,
                         principalTable: "Reviews",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ReviewRating",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
-                    ReviewId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(type: "integer", nullable: true),
+                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    ReviewId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ReviewRating", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ReviewRating_Reviews_ReviewId",
-                        column: x => x.ReviewId,
-                        principalTable: "Reviews",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ReviewRating_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ReviewRating_Reviews_ReviewId",
+                        column: x => x.ReviewId,
+                        principalTable: "Reviews",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "UserRating",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    UserId = table.Column<int>(nullable: true),
-                    Rating = table.Column<int>(nullable: false),
-                    ReviewId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(type: "integer", nullable: true),
+                    Rating = table.Column<int>(type: "integer", nullable: false),
+                    ReviewId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserRating", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserRating_Reviews_ReviewId",
-                        column: x => x.ReviewId,
-                        principalTable: "Reviews",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_UserRating_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserRating_Reviews_ReviewId",
+                        column: x => x.ReviewId,
+                        principalTable: "Reviews",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -287,16 +288,27 @@ namespace Coursework.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { 1, "6b51b8ea-9392-43b5-a25e-4ce3287f7707", "Admin", null });
+                values: new object[] { 1, "e9f5bbd7-db69-4226-816a-0daa0c485873", "Admin", null });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AvatarUrl", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "/Files/no_avatar.jpg", "2a978fa4-ad0a-4050-8ce3-7aed62da4fa9", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEKBjqM5EVpBXakgu/RCI35YVVPHfJ0t61Zl+G1p+yJgw5DQVfA36I99IL7LHrBBBdw==", null, false, "", false, "admin" });
+                values: new object[] { 1, 0, "/Files/no_avatar.jpg", "e6e0df4a-90fe-4771-bbf4-8fca4251ecc1", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEIziADaVlpd8xY7BO2XGmTGX80C2I1RLEDBt6bHKJQiBvfQB02BOS5ZG/+RxjIHGTw==", null, false, "", false, "admin" });
+
+            migrationBuilder.InsertData(
+                table: "ReviewGroups",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Movies" },
+                    { 2, "Events" },
+                    { 3, "Games" },
+                    { 4, "Books" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
-                columns: new[] { "UserId", "RoleId", "Discriminator" },
+                columns: new[] { "RoleId", "UserId", "Discriminator" },
                 values: new object[] { 1, 1, "ApplicationUserRole" });
 
             migrationBuilder.CreateIndex(

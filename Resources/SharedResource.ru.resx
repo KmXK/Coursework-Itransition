@@ -254,4 +254,15 @@
   <data name="LightTheme" xml:space="preserve">
     <value>Светлая</value>
   </data>
+  <data name="SearchNoResult" xml:space="preserve">
+    <value>По данному запросу ничего не было найдено</value>
+  </data>
+  <data name="CommentPlaceholder" xml:space="preserve">
+    <value>Что вы думаете?</value>
+    <comment>CommentPlaceholder</comment>
+  </data>
+  <data name="PostComment" xml:space="preserve">
+    <value>Отправить</value>
+    <comment>PostComment</comment>
+  </data>
 </root>

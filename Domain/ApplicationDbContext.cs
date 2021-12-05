@@ -44,6 +44,10 @@ namespace Coursework.Domain
             });
 
             builder.Entity<Review>()
+                .HasGeneratedTsVectorColumn(
+                    r => r.SearchVector,
+                    "russian",
+                    r=>new{r.Text, r.Title})
                 .HasIndex(p => p.SearchVector)
                 .HasMethod("GIN");
 
