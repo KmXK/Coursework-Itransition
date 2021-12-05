@@ -56,12 +56,14 @@
 @if (User.Identity.IsAuthenticated)
 {
     <div class="row mt-2">
-        <div class="col">
-            <textarea class="form-control" rows="3" style="resize: none" placeholder="@_sharedLocalizer["CommentPlaceholder"]"></textarea>
-            <button class="btn btn-sm btn-primary pull-right mt-1" type="submit">
+        <div id="commentContainer" class="col">
+            <span id="commentErrorSpan"></span>
+            <textarea id="commentText" class="form-control" rows="3" style="resize: none"
+                      placeholder="@_sharedLocalizer["CommentPlaceholder"]"></textarea>
+            <button id="btnPostComment" class="btn btn-sm btn-primary pull-right mt-1" type="submit">
                 <i class="fa fa-pencil fa-fw"></i> @_sharedLocalizer["PostComment"]
             </button>
-            @foreach (var comment in @Model.Comments)
+            @foreach (var comment in Model.Comments)
             {
                 await Html.RenderPartialAsync("CommentPartial", comment);
             }
@@ -72,7 +74,7 @@
 
 @section Scripts
 {
-        <script>
+    <script>
         $(document).ready(function() {
             $("#ratingInput").rating().on("rating:change",
                 function(event, value, caption) {
@@ -103,7 +105,23 @@
                     }
                 });
             });
+            $("#btnPostComment").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("PostComment", "Review")',
+                    data: {
+                        reviewId: '@Model.Id',
+                        text: $("#commentText").val()
+                    },
+                    success: function(data) {
+                        $("#commentContainer").append(data);
+                    },
+                    error: function(data) {
+                        $("#commentErrorSpan").val(data);
+                    }
+                });
+            });
         });
-        </script>
-    }
+    </script>
+}
 

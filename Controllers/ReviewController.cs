@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Coursework.Domain;
 using Coursework.Domain.Entities;
 using Coursework.Models;
 using Coursework.ViewModels;
+using Ganss.XSS;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -220,6 +222,31 @@ namespace Coursework.Controllers
             await _context.SaveChangesAsync();
 
             return Content(review.Likes.Sum(l => l.Rating).ToString());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostComment(int reviewId, string text)
+        {
+            var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
+            var review = await _context.Reviews
+                .Include(r => r.Comments)
+                .FirstOrDefaultAsync(r => r.Id == reviewId);
+            if (review == null || user == null)
+                return NotFound();
+
+            if (text == null)
+                return NoContent();
+
+            Comment comment = new Comment()
+            {
+                Author = user,
+                PostTime = DateTime.UtcNow,
+                Text = text
+            };
+            review.Comments.Add(comment);
+            await _context.SaveChangesAsync();
+
+            return PartialView("CommentPartial", comment);
         }
     }
 }
