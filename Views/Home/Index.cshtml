@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col-12 col-lg-8">
-        <h3>@_sharedLocalizer["LastReviews"]</h3>
+        <h4>@_sharedLocalizer["LastReviews"]</h4>
         <div class="pt-2">
             @foreach (var r in Model.LastReview)
             {
@@ -16,8 +16,8 @@
             }
         </div>
     </div>
-    <div class="col-12 col-lg-4">
-        <h3>@_sharedLocalizer["PopularReviews"]</h3>
+    <div class="col-12 col-lg-4 mt-3 mt-lg-0">
+        <h4>@_sharedLocalizer["PopularReviews"]</h4>
         <div class="pt-2">
             @foreach (var r in Model.PopularReviews)
             {

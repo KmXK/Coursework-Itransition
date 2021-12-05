@@ -49,6 +49,10 @@ namespace Coursework
                 {
                     config.AppId = Configuration["Authentication:Facebook:AppId"];
                     config.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                }).AddGoogle(config =>
+                {
+                    config.ClientId = Configuration["Authentication:Google:ClientId"];
+                    config.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
                 });
 
             services.ConfigureApplicationCookie(options =>

@@ -108,6 +108,7 @@ namespace Coursework.Controllers
 
             var review = await _context.Reviews
                 .Include(r=>r.Author)
+                .Include(r=>r.Group)
                 .Include(r=>r.Ratings)
                 .Include(r=>r.Likes)
                 .Include(r=>r.Comments)

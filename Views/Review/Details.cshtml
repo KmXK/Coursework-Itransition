@@ -1,6 +1,7 @@
 ﻿@model Coursework.Models.Review
 @inject MarkdownToHtmlService _markdownToHtmlService
 @inject IHtmlLocalizer<SharedResource> _sharedLocalizer
+@inject IHtmlLocalizer<GroupResource> _groupLocalizer
 
 @{
     ViewData["Title"] = "Review";
@@ -9,8 +10,8 @@
 <link rel="stylesheet" href="~/lib/bootstrap-star-rating/themes/krajee-svg/theme.min.js" />
 
 <div class="border rounded-2 p-2">
-    <div class="col-md-12">
-        <div class="pb-3 mb-4 border-bottom d-flex">
+    <div class="col-md-12 pb-3 mb-4 border-bottom">
+        <div class="d-flex">
             <a class="d-flex align-items-center text-muted text-decoration-none">
                 <img class="mb-0 me-2 rounded-circle" src="@Model.Author.AvatarUrl" width="32" height="32" alt="Avatar">
                 <span>@Model.Author.UserName</span>
@@ -18,11 +19,13 @@
 
             <div class="d-flex col-md-10 align-items-center justify-content-center text-center text-wrap text-break ms-2">
                 <h2>@Model.Title</h2>
+                <span class="badge bg-secondary align-middle me-2">@_groupLocalizer[Model.Group.Name]</span>
             </div>
             
-            <div>
-                @_sharedLocalizer["AuthorRating"]: @Model.AuthorRating
-            </div>
+        </div>
+        
+        <div>
+            @_sharedLocalizer["AuthorRating"]: @Model.AuthorRating
         </div>
     </div>
 

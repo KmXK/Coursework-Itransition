@@ -3,9 +3,15 @@
 @inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 
 <form asp-controller="Authorization" asp-action="LoginExternal" method="post">
-    <input hidden name="returnUrl" value=@Model/>
-    <button class="btn btn-lg btn-social btn-facebook" type="submit"
-            name="provider" value="Facebook">
-        <span class="fa fa-facebook" style="color: white"></span>@_sharedLocalizer["SignInFacebook"]
-    </button>
+    <input hidden name="returnUrl" value=@Model />
+    <div class="btn-group-vertical">
+        <button class="btn btn-lg btn-social btn-facebook" type="submit"
+                name="provider" value="Facebook">
+            <span class="fa fa-facebook" style="color: white"></span>@_sharedLocalizer["SignInFacebook"]
+        </button>
+        <button class="btn btn-lg btn-social btn-google btn-group" type="submit"
+                name="provider" value="Google">
+            <span class="fa fa-google" style="color: white"></span>@_sharedLocalizer["SignInGoogle"]
+        </button>
+    </div>
 </form>

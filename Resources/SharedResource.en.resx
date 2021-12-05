@@ -277,4 +277,8 @@
 	  <value>Last Reviews</value>
 	  <comment>LastReviews</comment>
   </data>
+  <data name="SignInGoogle" xml:space="preserve">
+	  <value>Sign In with Google</value>
+	  <comment>SignInGoogle</comment>
+  </data>
 </root>
