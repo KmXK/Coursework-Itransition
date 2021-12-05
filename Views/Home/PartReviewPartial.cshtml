@@ -13,7 +13,7 @@
             </h4>
         </a>
         <span class="badge bg-secondary align-middle">@_groupLocalizer[Model.Group.Name]</span>
-
+        
         @{
             var hasRating = Model.Ratings != null && Model.Ratings.Any();
             if (hasRating)
@@ -30,10 +30,14 @@
                 <label class="d-inline float-end">@_sharedLocalizer["NoRating"]</label>
             }
         }
-        <br />
-        <a class="text-decoration-none text-dark" asp-controller="Review"
-           asp-action="Details" asp-route-id="@Model.Id">
-            <h3 class="mb-0 mt-3">@Model.Title</h3>
+        
+        <a class="text-dark text-decoration-none mt-3 pb-3" asp-controller="Review"
+             asp-action="Details" asp-route-id="@Model.Id">
+            <h3>@Model.Title</h3>
         </a>
+        
+        <div>
+            @_sharedLocalizer["AuthorRating"]: @Model.AuthorRating
+        </div>
     </div>
 </div>

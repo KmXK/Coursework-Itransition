@@ -266,4 +266,7 @@
     <value>Share</value>
     <comment>PostComment</comment>
   </data>
+  <data name="AuthorRating" xml:space="preserve">
+    <value>Author rating</value>
+  </data>
 </root>

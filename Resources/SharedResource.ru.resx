@@ -265,4 +265,7 @@
     <value>Отправить</value>
     <comment>PostComment</comment>
   </data>
+  <data name="AuthorRating" xml:space="preserve">
+    <value>Оценка автора</value>
+  </data>
 </root>
