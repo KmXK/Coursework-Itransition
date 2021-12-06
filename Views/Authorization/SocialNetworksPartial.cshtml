@@ -4,7 +4,7 @@
 
 <form asp-controller="Authorization" asp-action="LoginExternal" method="post">
     <input hidden name="returnUrl" value=@Model />
-    <div class="btn-group-vertical">
+    <div class="btn-group-vertical col-12 col-lg-4">
         <button class="btn btn-lg btn-social btn-facebook" type="submit"
                 name="provider" value="Facebook">
             <span class="fa fa-facebook" style="color: white"></span>@_sharedLocalizer["SignInFacebook"]
