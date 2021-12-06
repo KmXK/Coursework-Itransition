@@ -9,20 +9,20 @@
 
 <form class="mb-3 border-bottom pb-3" asp-controller="Authorization" asp-action="Login" method="post" asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
-    <div class="container">
+    <div>
         <label class="col-2 form-label" asp-for="Username"></label>
         <input class="col-4 form-control" asp-for="Username" />
         <span asp-validation-for="Username"></span>
     </div>
     <br />
-    <div class="container">
+    <div>
         <label class="col-2 form-label" asp-for="Password"></label>
         <input class="col-4 form-control" asp-for="Password" />
     </div>
 
     <br />
 
-    <div class="container">
+    <div>
         <label class="form-check-label" asp-for="RememberMe"></label>
         <input class="ms-1 form-check-inline" asp-for="RememberMe" />
     </div>
