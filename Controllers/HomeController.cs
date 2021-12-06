@@ -37,7 +37,10 @@ namespace Coursework.Controllers
         public IActionResult Search(string searchString)
         {
             var reviews = _context.Reviews
-                .Where(r=>r.SearchVector.Matches(EF.Functions.ToTsQuery(searchString)))
+                .Include(r=>r.Comments)
+                .Where(r=>
+                    r.SearchVector.Matches(searchString) ||
+                    r.Comments.Any(c=>c.SearchVector.Matches(searchString)))
                 .Include(r => r.Author)
                 .Include(r => r.Ratings)
                 .Include(r=>r.Group)

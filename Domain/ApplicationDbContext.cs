@@ -51,6 +51,14 @@ namespace Coursework.Domain
                 .HasIndex(p => p.SearchVector)
                 .HasMethod("GIN");
 
+            builder.Entity<Comment>()
+                .HasGeneratedTsVectorColumn(
+                    r => r.SearchVector,
+                    "russian",
+                    r => new { r.Text })
+                .HasIndex(p => p.SearchVector)
+                .HasMethod("GIN");
+
             builder.Entity<ReviewGroup>()
                 .HasData(new List<ReviewGroup>()
                 {

@@ -60,20 +60,24 @@ namespace Coursework.Controllers
                     Images = new List<ImageUrl>()
                 };
 
-                string path = "/Files/";
-                foreach (var modelUploadFile in model.UploadFiles)
+                if (model.UploadFiles != null)
                 {
-                    var imageUrl = new ImageUrl()
+                    string path = "/Files/";
+                    foreach (var modelUploadFile in model.UploadFiles)
                     {
-                        Url = Path.Combine(path, Path.ChangeExtension(Path.GetRandomFileName(),
-                            Path.GetExtension(modelUploadFile.FileName)))
-                    };
-                    await using (var fs = new FileStream(_webHostEnvironment.WebRootPath +
-                                                         imageUrl.Url, FileMode.Create))
-                    {
-                        await modelUploadFile.CopyToAsync(fs);
+                        var imageUrl = new ImageUrl()
+                        {
+                            Url = Path.Combine(path, Path.ChangeExtension(Path.GetRandomFileName(),
+                                Path.GetExtension(modelUploadFile.FileName)))
+                        };
+                        await using (var fs = new FileStream(_webHostEnvironment.WebRootPath +
+                                                             imageUrl.Url, FileMode.Create))
+                        {
+                            await modelUploadFile.CopyToAsync(fs);
+                        }
+
+                        review.Images.Add(imageUrl);
                     }
-                    review.Images.Add(imageUrl);
                 }
 
                 await _context.Reviews.AddAsync(review);
