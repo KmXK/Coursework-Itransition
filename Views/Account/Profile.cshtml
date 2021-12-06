@@ -2,62 +2,64 @@
 @inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 
 @{
-    ViewBag.Title = @Model.User.UserName;
+    ViewBag.Title = Model.User.UserName;
 }
 
 <div style="display: flex" class="mb-2">
-    <img height="60" width="60" class="rounded-circle" style="margin-right: 10px" src="@Model.User.AvatarUrl" alt="No avatar image"/>
+    <img height="60" width="60" class="rounded-circle" style="margin-right: 10px" src="@Model.User.AvatarUrl" alt="No avatar image" />
     <h2>@Model.User.UserName</h2>
 </div>
 
-
-<div class="text-end mb-2">
-    <a asp-controller="Review" asp-action="Create" class="btn btn-warning" type="button">
-        @_sharedLocalizer["Create"]
-    </a>
-</div>
+@if (Model.CurrentUser == Model.User)
+{
+    <div class="text-end mb-2">
+        <a asp-controller="Review" asp-action="Create" class="btn btn-warning" type="button">
+            @_sharedLocalizer["Create"]
+        </a>
+    </div>
+}
 
 <table id="reviewTable" class="table">
     <thead>
-    <tr>
-        <th>@_sharedLocalizer["Title"]</th>
-        <th>@_sharedLocalizer["Rating"]</th>
-        <th>@_sharedLocalizer["Actions"]</th>
-    </tr>
+        <tr>
+            <th>@_sharedLocalizer["Title"]</th>
+            <th>@_sharedLocalizer["Rating"]</th>
+            <th>@_sharedLocalizer["Actions"]</th>
+        </tr>
     </thead>
     <tbody>
         @foreach (var r in @Model.Reviews)
         {
-        <tr>
-            <td>
-                <a asp-controller="Review" asp-action="Details" asp-route-id="@r.Id">
-                    @r.Title
-                </a>
-            </td>
-            
-            <td>@r.AuthorRating</td>
-            <td>
-                <div class="btn-group">
-
-                    @if(Model.CurrentUser == Model.User || User.IsInRole("Admin"))
-                    {
-                        <a asp-controller="Review" asp-action="Edit"
-                           asp-route-id="@r.Id" class="btn btn-primary" type="button">
-                            @_sharedLocalizer["Edit"]
-                        </a>
-
-                        <a asp-controller="Review" asp-action="Delete" asp-route-returnUrl="@Context.Request.GetDisplayUrl()"
-                           asp-route-id="@r.Id" class="btn btn-danger btn-group" type="button">
-                            @_sharedLocalizer["Delete"]
-                        </a>
-                    }
-                    <a asp-controller="Review" asp-action="Details"
-                       asp-route-id="@r.Id" class="btn btn-warning btn-group" type="button">
-                        @_sharedLocalizer["View"]
+            <tr>
+                <td>
+                    <a asp-controller="Review" asp-action="Details" asp-route-id="@r.Id">
+                        @r.Title
                     </a>
-                </div>
-            </td>
-        </tr>
+                </td>
+
+                <td>@r.AuthorRating</td>
+                <td>
+                    <div class="btn-group">
+
+                        @if (Model.CurrentUser == Model.User || User.IsInRole("Admin"))
+                        {
+                            <a asp-controller="Review" asp-action="Edit"
+                               asp-route-id="@r.Id" class="btn btn-primary" type="button">
+                                @_sharedLocalizer["Edit"]
+                            </a>
+
+                            <a asp-controller="Review" asp-action="Delete" asp-route-returnUrl="@Context.Request.GetDisplayUrl()"
+                               asp-route-id="@r.Id" class="btn btn-danger btn-group" type="button">
+                                @_sharedLocalizer["Delete"]
+                            </a>
+                        }
+                        <a asp-controller="Review" asp-action="Details"
+                           asp-route-id="@r.Id" class="btn btn-warning btn-group" type="button">
+                            @_sharedLocalizer["View"]
+                        </a>
+                    </div>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -66,8 +68,8 @@
 {
     <script src="~/lib/datatables/media/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#reviewTable').DataTable();
-        } );
+        });
     </script>
 }
