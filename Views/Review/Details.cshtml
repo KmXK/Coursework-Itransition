@@ -12,7 +12,8 @@
 <div class="border rounded-2 p-2">
     <div class="col-md-12 pb-3 mb-4 border-bottom">
         <div class="d-flex">
-            <a class="d-flex align-items-center text-muted text-decoration-none">
+            <a asp-controller="Account" asp-action="Profile"
+               asp-route-id="@Model.Author.Id" class="text-decoration-none text-black">
                 <img class="mb-0 me-2 rounded-circle" src="@Model.Author.AvatarUrl" width="32" height="32" alt="Avatar">
                 <span>@Model.Author.UserName</span>
             </a>
