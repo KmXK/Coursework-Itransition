@@ -1,5 +1,6 @@
 ﻿@model Coursework.ViewModels.AccountViewModel
 @inject IHtmlLocalizer<SharedResource> _sharedLocalizer
+@inject LikesService _likesService
 
 @{
     ViewBag.Title = Model.User.UserName;
@@ -7,7 +8,7 @@
 
 <div style="display: flex" class="mb-2">
     <img height="60" width="60" class="rounded-circle" style="margin-right: 10px" src="@Model.User.AvatarUrl" alt="No avatar image" />
-    <h2>@Model.User.UserName</h2>
+    <h2>@Model.User.UserName (@_likesService.GetUserLikes(Model.User))</h2>
 </div>
 
 @if (Model.CurrentUser == Model.User)

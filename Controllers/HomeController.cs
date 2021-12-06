@@ -24,7 +24,7 @@ namespace Coursework.Controllers
                 .ToList();
 
             var popularReviews = lastReviews
-                .OrderByDescending(r => r.Ratings.Sum(rating => rating.Rating))
+                .OrderByDescending(r => r.Ratings.Any() ? r.Ratings.Average(rating => rating.Rating) : 0 )
                 .Take(5);
 
             return View(new MainPageViewModel()

@@ -2,6 +2,7 @@
 @model Coursework.Models.Review
 @inject IHtmlLocalizer<SharedResource> _sharedLocalizer
 @inject IHtmlLocalizer<GroupResource> _groupLocalizer
+@inject LikesService _likesService
 
 <div class="card mt-2">
     <div class="card-body">
@@ -10,7 +11,7 @@
                asp-route-id="@Model.Author.Id" class="text-decoration-none text-black">
                 <img src="@Model.Author.AvatarUrl" alt="Avatar" class="rounded-circle" width="40" height="40">
                 <h4 class="d-inline text-center align-middle">
-                    @Model.Author.UserName
+                    @Model.Author.UserName (@_likesService.GetUserLikes(Model.Author))
                 </h4>
             </a>
             <span class="badge bg-secondary align-middle">@_groupLocalizer[Model.Group.Name]</span>
@@ -35,7 +36,7 @@
 
         <a class="text-dark text-decoration-none mt-3 pb-3" asp-controller="Review"
            asp-action="Details" asp-route-id="@Model.Id">
-            <p style="font-size: 14pt">@Model.Title</p>
+            <p class="mt-3" style="font-size: 14pt">@Model.Title</p>
         </a>
 
         <div>

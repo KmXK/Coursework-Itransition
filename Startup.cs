@@ -70,6 +70,7 @@ namespace Coursework
                 .AddViewLocalization();
 
             services.AddSingleton<MarkdownToHtmlService>();
+            services.AddScoped<LikesService>();
 
             services.Configure<RequestLocalizationOptions>(options =>
             {

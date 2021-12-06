@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Coursework.Domain;
 using Coursework.Domain.Entities;
 using Coursework.Models;
+using Coursework.Services;
 using Coursework.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Coursework.Controllers
 {
@@ -21,13 +23,15 @@ namespace Coursework.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly LikesService _likesService;
 
         public ReviewController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment, LikesService likesService)
         {
             _context = context;
             _userManager = userManager;
             _webHostEnvironment = webHostEnvironment;
+            _likesService = likesService;
         }
 
         public IActionResult Create()
@@ -231,6 +235,7 @@ namespace Coursework.Controllers
         {
             var user = await _userManager.FindByIdAsync(_userManager.GetUserId(User));
             var review = await _context.Reviews
+                .Include(r=>r.Author)
                 .Include(r => r.Likes)
                 .FirstOrDefaultAsync(r => r.Id == reviewId);
             var rating = review.Likes.FirstOrDefault(l => l.User == user);
@@ -248,8 +253,12 @@ namespace Coursework.Controllers
             }
 
             await _context.SaveChangesAsync();
-
-            return Content(review.Likes.Sum(l => l.Rating).ToString());
+            
+            return Content(JsonConvert.SerializeObject(new
+            {
+                likes = review.Likes.Sum(l => l.Rating).ToString(),
+                userLikes = _likesService.GetUserLikes(review.Author).ToString()
+            }));
         }
 
         [HttpPost]
