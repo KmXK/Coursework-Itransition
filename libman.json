@@ -39,6 +39,10 @@
       "provider": "jsdelivr",
       "library": "datatables@1.10.18",
       "destination": "wwwroot/lib/datatables/"
+    },
+    {
+      "library": "bootstrap-fileinput@5.2.6",
+      "destination": "wwwroot/lib/bootstrap-fileinput/"
     }
   ]
 }

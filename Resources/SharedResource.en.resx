@@ -306,4 +306,16 @@
 	  <value>Confirm</value>
 	  <comment>Confirm</comment>
   </data>
+  <data name="Images" xml:space="preserve">
+	  <value>Images</value>
+	  <comment>Images</comment>
+  </data>
+  <data name="Previous" xml:space="preserve">
+	  <value>Previous</value>
+	  <comment>Previous</comment>
+  </data>
+  <data name="Next" xml:space="preserve">
+	  <value>Next</value>
+	  <comment>Next</comment>
+  </data>
 </root>

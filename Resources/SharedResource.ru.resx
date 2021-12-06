@@ -305,4 +305,16 @@
 	  <value>Подтвердить</value>
 	  <comment>Confirm</comment>
   </data>
+  <data name="Images" xml:space="preserve">
+	  <value>Изображения</value>
+	  <comment>Images</comment>
+  </data>
+  <data name="Previous" xml:space="preserve">
+	  <value>Предыдущее</value>
+	  <comment>Previous</comment>
+  </data>
+  <data name="Next" xml:space="preserve">
+	  <value>Следующее</value>
+	  <comment>Next</comment>
+  </data>
 </root>

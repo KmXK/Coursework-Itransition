@@ -16,6 +16,7 @@ namespace Coursework.Models
         public ICollection<Comment> Comments { get; set; }
         public ICollection<ReviewRating> Ratings { get; set; }
         public ICollection<UserRating> Likes { get; set; }
+        public ICollection<ImageUrl> Images { get; set; }
 
         public NpgsqlTsVector SearchVector { get; set; }
     }

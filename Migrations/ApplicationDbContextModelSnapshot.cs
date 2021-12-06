@@ -51,7 +51,7 @@ namespace Coursework.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "e9f5bbd7-db69-4226-816a-0daa0c485873",
+                            ConcurrencyStamp = "46e998a9-3caf-4e11-b564-011238b84f55",
                             Name = "Admin"
                         });
                 });
@@ -130,11 +130,11 @@ namespace Coursework.Migrations
                             Id = 1,
                             AccessFailedCount = 0,
                             AvatarUrl = "/Files/no_avatar.jpg",
-                            ConcurrencyStamp = "e6e0df4a-90fe-4771-bbf4-8fca4251ecc1",
+                            ConcurrencyStamp = "53539be3-48fb-4f51-90f1-ff19b491fd6f",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIziADaVlpd8xY7BO2XGmTGX80C2I1RLEDBt6bHKJQiBvfQB02BOS5ZG/+RxjIHGTw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAaSq+IkoyUafykM0I0cUxIy7/15Id37JkGw7SCxYUxWTbO+JEeuT5r6mIH8jeC00A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -168,6 +168,26 @@ namespace Coursework.Migrations
                     b.HasIndex("ReviewId");
 
                     b.ToTable("Comment");
+                });
+
+            modelBuilder.Entity("Coursework.Models.ImageUrl", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("ReviewId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReviewId");
+
+                    b.ToTable("ImageUrl");
                 });
 
             modelBuilder.Entity("Coursework.Models.Review", b =>
@@ -435,6 +455,15 @@ namespace Coursework.Migrations
                     b.Navigation("Author");
                 });
 
+            modelBuilder.Entity("Coursework.Models.ImageUrl", b =>
+                {
+                    b.HasOne("Coursework.Models.Review", null)
+                        .WithMany("Images")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Coursework.Models.Review", b =>
                 {
                     b.HasOne("Coursework.Domain.Entities.ApplicationUser", "Author")
@@ -537,6 +566,8 @@ namespace Coursework.Migrations
             modelBuilder.Entity("Coursework.Models.Review", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Images");
 
                     b.Navigation("Likes");
 

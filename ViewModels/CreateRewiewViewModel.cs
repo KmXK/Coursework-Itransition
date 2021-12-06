@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace Coursework.ViewModels
 {
@@ -17,5 +18,7 @@ namespace Coursework.ViewModels
         public IEnumerable<string> Groups { get; set; }
         [Display(Name = "SelectedGroup")]
         public string SelectedGroup { get; set; }
+
+        public IFormFileCollection UploadFiles { get; set; }
     }
 }

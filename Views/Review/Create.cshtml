@@ -5,7 +5,8 @@
     ViewBag.Title = "Create";
 }
 
-<form class="mb-3" asp-controller="Review" asp-action="Create" method="post">
+<form class="mb-3" asp-controller="Review" asp-action="Create" method="post"
+      enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label class="col-2 form-label" asp-for="Title"></label>
@@ -25,19 +26,47 @@
         <span asp-validation-for="Rating"></span>
     </div>
     <br/>
-    <label asp-for="SelectedGroup"></label>
-    <select class="form-select" asp-for="SelectedGroup">
-        @foreach (var groupName in Model.Groups)
-        {
-            <option value="@groupName">@groupName</option>
-        }
-    </select>
+    <div>
+        <label asp-for="SelectedGroup"></label>
+        <select class="form-select" asp-for="SelectedGroup">
+            @foreach (var groupName in Model.Groups)
+            {
+                <option value="@groupName">@groupName</option>
+            }
+        </select>
+    </div>
     <br/>
+    <div>
+        <label class="col-2">Images</label>
+        <input id="imageInput" type="file" accept="image/*"
+               data-preview-file-type="image" multiple
+               asp-for="UploadFiles"/>
+    </div>
+    <br />
 
     <input type="submit" class="btn btn-primary" value="@_sharedLocalizer["Confirm"]"/>
 </form>
 
-<script src="~/lib/simplemde/dist/simplemde.min.js"></script>
-<script>
-    var simpleMde = new SimpleMDE({ element: document.getElementById("textInput") });
-</script>
+@section Styles
+{
+    <link rel="stylesheet" href="~/lib/bootstrap-fileinput/css/fileinput.min.css" />
+}
+
+@section Scripts
+{
+    <script src="~/lib/simplemde/dist/simplemde.min.js"></script>
+    <script src="~/lib/bootstrap-fileinput/js/fileinput.min.js"></script>
+    <script src="~/lib/bootstrap-fileinput/themes/fa/theme.min.js"></script>
+    <script>
+        var simpleMde = new SimpleMDE({ element: document.getElementById("textInput") });
+
+        $(document).ready(function () {
+            $("#imageInput").fileinput({
+                showUpload: false,
+                maxFileCount: 3,
+                allowedFileTypes: ['image'],
+                theme: 'fa'
+            });
+        });
+    </script>
+}

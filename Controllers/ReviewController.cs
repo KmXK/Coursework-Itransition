@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Coursework.Domain;
 using Coursework.Domain.Entities;
 using Coursework.Models;
 using Coursework.ViewModels;
-using Ganss.XSS;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +20,14 @@ namespace Coursework.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ReviewController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public ReviewController(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
+            IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _userManager = userManager;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Create()
@@ -36,7 +41,6 @@ namespace Coursework.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateRewiewViewModel model)
         {
-            model.Groups = _context.ReviewGroups.Select(g => g.Name).ToList();
             if (ModelState.IsValid)
             {
                 var group = await _context.ReviewGroups.FirstOrDefaultAsync(g => g.Name == model.SelectedGroup);
@@ -46,20 +50,38 @@ namespace Coursework.Controllers
                     return View(model);
                 }
 
-                var rewiew = new Review()
+                var review = new Review()
                 {
                     Title = model.Title,
                     Text = model.Text,
                     AuthorRating = model.Rating,
                     Author = await _userManager.FindByIdAsync(_userManager.GetUserId(User)),
-                    Group = group
+                    Group = group,
+                    Images = new List<ImageUrl>()
                 };
 
-                await _context.Reviews.AddAsync(rewiew);
+                string path = "/Files/";
+                foreach (var modelUploadFile in model.UploadFiles)
+                {
+                    var imageUrl = new ImageUrl()
+                    {
+                        Url = Path.Combine(path, Path.ChangeExtension(Path.GetRandomFileName(),
+                            Path.GetExtension(modelUploadFile.FileName)))
+                    };
+                    await using (var fs = new FileStream(_webHostEnvironment.WebRootPath +
+                                                         imageUrl.Url, FileMode.Create))
+                    {
+                        await modelUploadFile.CopyToAsync(fs);
+                    }
+                    review.Images.Add(imageUrl);
+                }
+
+                await _context.Reviews.AddAsync(review);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
 
+            model.Groups = _context.ReviewGroups.Select(g => g.Name).ToList();
             return View(model);
         }
 
@@ -108,6 +130,7 @@ namespace Coursework.Controllers
 
             var review = await _context.Reviews
                 .Include(r=>r.Author)
+                .Include(r=>r.Images)
                 .Include(r=>r.Group)
                 .Include(r=>r.Ratings)
                 .Include(r=>r.Likes)

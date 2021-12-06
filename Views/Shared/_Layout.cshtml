@@ -4,6 +4,7 @@
     <title>@ViewData["Title"] - Coursework</title>
     @await Html.PartialAsync("MetatagsPartial")
     @await Html.PartialAsync("CssPartial")
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     @await Html.PartialAsync("HeaderPartial")

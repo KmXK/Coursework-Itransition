@@ -34,6 +34,39 @@
     </div>
 </div>
 
+@if (Model.Images != null && Model.Images.Any())
+{
+    <div class="col-md-12 mt-2">
+        <h3>@_sharedLocalizer["Images"]:</h3>
+
+        <div id="carouselPictures" class="carousel carousel-dark slide col-12 col-md-6" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                @{
+                    bool isFirst = true;
+                    foreach (var image in Model.Images)
+                    {
+                        <div class="carousel-item @(isFirst ? "active" : "")">
+                            <img src="@image.Url" class="w-100" style="object-fit: contain; height: 400px" alt="...">
+                        </div>
+                        isFirst = false;
+                    }
+                }
+            </div>
+            @if(Model.Images.Count > 1)
+            {
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselPictures" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">@_sharedLocalizer["Previous"]</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselPictures" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">@_sharedLocalizer["Next"]</span>
+                </button>
+            }
+        </div>
+    </div>
+}
+
 @if (User.Identity.IsAuthenticated)
 {
     <br />
