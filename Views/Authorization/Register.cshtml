@@ -10,19 +10,19 @@
 <form class="mb-3 border-bottom pb-3" asp-controller="Authorization" asp-action="Register" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="container">
-        <label class="col-2 form-label">@_sharedLocalizer["Username"]</label>
-        <input class="col-4 form-control" type="text" asp-for="Username" />
+        <label class="col-2 form-label" asp-for="Username"></label>
+        <input class="col-4 form-control" asp-for="Username" />
         <span asp-validation-for="Username"></span>
     </div>
     <br />
     <div class="container">
-        <label class="col-2 form-label">@_sharedLocalizer["Password"]</label>
-        <input class="col-4 form-control" type="password" asp-for="Password" />
+        <label class="col-2 form-label" asp-for="Password"></label>
+        <input class="col-4 form-control" asp-for="Password" />
         <span asp-validation-for="Password"></span>
     </div>
     <br />
     <div class="container">
-        <label class="col-2 form-label">@_sharedLocalizer["ConfirmPassword"]</label>
+        <label class="col-2 form-label" asp-for="ConfirmPassword"></label>
         <input class="col-4 form-control" asp-for="ConfirmPassword" />
         <span asp-validation-for="ConfirmPassword"></span>
     </div>
@@ -33,7 +33,7 @@
     </div>
 
     <br />
-    <input type="submit" class="btn btn-primary" />
+    <input type="submit" class="btn btn-primary" value="@_sharedLocalizer["Confirm"]"/>
 </form>
 
 @{

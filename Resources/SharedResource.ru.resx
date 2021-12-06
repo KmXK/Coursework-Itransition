@@ -269,15 +269,40 @@
     <value>Оценка автора</value>
   </data>
   <data name="PopularReviews" xml:space="preserve">
-	  <value>Популярные отзывы</value>
-	  <comment>PopularReviews</comment>
+    <value>Популярные отзывы</value>
+    <comment>PopularReviews</comment>
   </data>
   <data name="LastReviews" xml:space="preserve">
-	  <value>Последние отзывы</value>
-	  <comment>LastReviews</comment>
+    <value>Последние отзывы</value>
+    <comment>LastReviews</comment>
   </data>
   <data name="SignInGoogle" xml:space="preserve">
-	  <value>Зайти через Google</value>
-	  <comment>SignInGoogle</comment>
+    <value>Зайти через Google</value>
+    <comment>SignInGoogle</comment>
+  </data>
+  <data name="ConfirmPasswordNotEqual" xml:space="preserve">
+    <value>Пароли должны совпадать</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Пароль не может быть пустым</value>
+  </data>
+  <data name="RatingRange" xml:space="preserve">
+    <value>Рейтинг должен быть в интервале от 0 до 10</value>
+  </data>
+  <data name="SelectedGroup" xml:space="preserve">
+    <value>Группа</value>
+  </data>
+  <data name="TextRequired" xml:space="preserve">
+    <value>Текст не может быть пустым</value>
+  </data>
+  <data name="TitleRequired" xml:space="preserve">
+    <value>Название не может быть пустым</value>
+  </data>
+  <data name="UsernameRequired" xml:space="preserve">
+    <value>Имя пользователя не может быть пустым</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+	  <value>Подтвердить</value>
+	  <comment>Confirm</comment>
   </data>
 </root>

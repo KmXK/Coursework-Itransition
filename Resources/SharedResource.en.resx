@@ -270,15 +270,40 @@
     <value>Author rating</value>
   </data>
   <data name="PopularReviews" xml:space="preserve">
-	  <value>Popular Reviews</value>
-	  <comment>PopularReviews</comment>
+    <value>Popular Reviews</value>
+    <comment>PopularReviews</comment>
   </data>
   <data name="LastReviews" xml:space="preserve">
-	  <value>Last Reviews</value>
-	  <comment>LastReviews</comment>
+    <value>Last Reviews</value>
+    <comment>LastReviews</comment>
   </data>
   <data name="SignInGoogle" xml:space="preserve">
-	  <value>Sign In with Google</value>
-	  <comment>SignInGoogle</comment>
+    <value>Sign In with Google</value>
+    <comment>SignInGoogle</comment>
+  </data>
+  <data name="ConfirmPasswordNotEqual" xml:space="preserve">
+    <value>Passwords must be equal</value>
+  </data>
+  <data name="PasswordRequired" xml:space="preserve">
+    <value>Password cannot be empty</value>
+  </data>
+  <data name="RatingRange" xml:space="preserve">
+    <value>Rating must be in range from 0 to 10</value>
+  </data>
+  <data name="SelectedGroup" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="TextRequired" xml:space="preserve">
+    <value>Text cannot be empty</value>
+  </data>
+  <data name="TitleRequired" xml:space="preserve">
+    <value>Title cannot be empty</value>
+  </data>
+  <data name="UsernameRequired" xml:space="preserve">
+    <value>Username cannot be empty</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+	  <value>Confirm</value>
+	  <comment>Confirm</comment>
   </data>
 </root>

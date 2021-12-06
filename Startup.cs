@@ -62,6 +62,11 @@ namespace Coursework
             });
 
             services.AddControllersWithViews()
+                .AddDataAnnotationsLocalization(options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create(typeof(SharedResource));
+                })
                 .AddViewLocalization();
 
             services.AddSingleton<MarkdownToHtmlService>();

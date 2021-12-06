@@ -8,21 +8,24 @@
 <form class="mb-3" asp-controller="Review" asp-action="Create" method="post">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="container">
-        <label class="col-2">Title</label>
-        <input class="col-4" type="text" asp-for="Title" />
+        <label class="col-2 form-label" asp-for="Title"></label>
+        <input class="col-4 form-control" type="text" asp-for="Title" />
         <span asp-validation-for="Title"></span>
     </div>
     <br />
     <div class="container">
-        <label class="col-2">@_sharedLocalizer["Text"]</label>
-        <textarea class="col-6" asp-for="Text" id="textInput"></textarea>
+        <label class="col-2 form-label" asp-for="Text"></label>
+        <textarea class="col-6 form-control" asp-for="Text" id="textInput"></textarea>
+        <span asp-validation-for="Text"></span>
     </div>
     <br />
     <div class="container">
-        <label class="col-2">@_sharedLocalizer["Rating"]</label>
-        <input class="col-4" type="number" min="0" max="10" asp-for="Rating" />
+        <label class="col-2 form-label" asp-for="Rating"></label>
+        <input class="col-4 form-control" asp-for="Rating" />
+        <span asp-validation-for="Rating"></span>
     </div>
     <br/>
+    <label asp-for="SelectedGroup"></label>
     <select class="form-select" asp-for="SelectedGroup">
         @foreach (var groupName in Model.Groups)
         {
@@ -31,7 +34,7 @@
     </select>
     <br/>
 
-    <input type="submit" class="btn btn-primary" />
+    <input type="submit" class="btn btn-primary" value="@_sharedLocalizer["Confirm"]"/>
 </form>
 
 <script src="~/lib/simplemde/dist/simplemde.min.js"></script>

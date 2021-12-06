@@ -4,13 +4,14 @@ namespace Coursework.ViewModels
 {
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "UsernameRequired")]
+        [Display(Name = "Username")]
         public string Username { get; set; }
-
-        [Required]
+        [Required(ErrorMessage = "PasswordRequired")]
         [DataType(DataType.Password)]
+        [Display(Name = "Password")]
         public string Password { get; set; }
-
+        [Display(Name = "RememberMe")]
         public bool RememberMe { get; set; }
 
         public string ReturnUrl { get; set; }
